@@ -1,0 +1,51 @@
+/* TCS Group — base element defaults.
+   Light-touch resets + brand typographic defaults. */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: var(--lh-normal);
+  color: var(--text-body);
+  background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  color: var(--text-strong);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-tight);
+  margin: 0 0 0.5em;
+  font-weight: var(--fw-bold);
+  text-wrap: balance;
+}
+
+p { margin: 0 0 1em; text-wrap: pretty; }
+
+a {
+  color: var(--link);
+  text-decoration: none;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+a:hover { color: var(--link-hover); }
+
+strong { font-weight: var(--fw-bold); color: var(--text-strong); }
+
+small { font-size: var(--fs-caption); }
+
+code, kbd, samp { font-family: var(--font-mono); font-size: 0.9em; }
+
+::selection { background: var(--tcs-sky); color: var(--tcs-navy); }
+
+/* Utility: uppercase eyebrow label used across brand surfaces */
+.tcs-eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--color-accent);
+}

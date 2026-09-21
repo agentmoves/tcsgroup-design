@@ -1,0 +1,6 @@
+/* TCS Group — Webfonts
+   Per the TCS brand style guide, the WEB typefaces are Red Hat Display
+   (SemiBold = titles/headers, Regular = subheaders, Light = body).
+   Proxima Nova is the PRINT counterpart (not web-licensed here); Red Hat
+   Display is the on-screen brand face used across all templates. */
+@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&display=swap');

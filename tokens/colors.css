@@ -1,0 +1,65 @@
+/* TCS Group — Color tokens
+   Palette from the TCS Group Brand Guide (color palette page).
+   Salmon, Sky (#d4eef7), Navy (#223659), Slate (#7c7f8c). */
+:root {
+  /* ---- Brand core ---- */
+  --tcs-salmon:      #F0716D; /* primary accent — energy, CTAs */
+  --tcs-salmon-600:  #E4574F; /* hover / pressed accent */
+  --tcs-salmon-300:  #F7A9A5;
+  --tcs-salmon-100:  #FCE3E1; /* salmon tint surface */
+
+  --tcs-navy:        #223659; /* primary brand — headers, text, footer */
+  --tcs-navy-800:    #1A2A47;
+  --tcs-navy-600:    #33507F; /* lighter navy for links / accents on light */
+  --tcs-navy-050:    #EAEEF4; /* navy wash surface */
+
+  --tcs-sky:         #D4EEF7; /* soft supporting tint */
+  --tcs-sky-200:     #E7F5FA;
+  --tcs-sky-500:     #8FD0E6; /* saturated sky for small accents */
+
+  --tcs-slate:       #7C7F8C; /* neutral gray — secondary text, borders */
+  --tcs-slate-600:   #5B5E6A;
+  --tcs-slate-300:   #B7B9C1;
+  --tcs-slate-100:   #ECEDF0;
+
+  --tcs-black:       #000000; /* logo / high-contrast brand black */
+
+  /* ---- Neutrals (harmonized, cool) ---- */
+  --tcs-ink:         #16213A; /* near-black, navy-tinted, body text */
+  --tcs-white:       #FFFFFF;
+  --tcs-paper:       #FBFBFC; /* app background */
+  --tcs-cloud:       #F4F5F7; /* section alt background */
+  --tcs-line:        #E3E5EA; /* hairline borders */
+
+  /* ---- Semantic aliases ---- */
+  --color-bg:            var(--tcs-paper);
+  --color-bg-alt:        var(--tcs-cloud);
+  --color-bg-inverse:    var(--tcs-navy);
+  --surface-card:        var(--tcs-white);
+  --surface-tint:        var(--tcs-sky);
+  --surface-tint-warm:   var(--tcs-salmon-100);
+
+  --text-strong:         var(--tcs-navy);
+  --text-body:           var(--tcs-ink);
+  --text-muted:          var(--tcs-slate);
+  --text-inverse:        var(--tcs-white);
+  --text-on-accent:      var(--tcs-white);
+
+  --color-accent:        var(--tcs-salmon);
+  --color-accent-hover:  var(--tcs-salmon-600);
+  --color-primary:       var(--tcs-navy);
+  --color-primary-hover: var(--tcs-navy-800);
+
+  --border-default:      var(--tcs-line);
+  --border-strong:       var(--tcs-slate-300);
+  --focus-ring:          var(--tcs-navy-600);
+
+  --link:                var(--tcs-navy-600);
+  --link-hover:          var(--tcs-salmon-600);
+
+  /* ---- Status ---- */
+  --status-success:      #2E9E6B;
+  --status-warning:      #D9A441;
+  --status-danger:       var(--tcs-salmon-600);
+  --status-info:         var(--tcs-navy-600);
+}
