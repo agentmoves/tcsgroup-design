@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<!-- @template name="Market + Listings Combined" description="Market update and Top-5 listings side by side on one black canvas — for a single combined email graphic. Edit data in the two source templates." -->
+<!-- ASK FIRST — do not invent or placeholder these. Before populating this template, ask the user for: everything the Market Update and Top Listings templates need — reporting period, county figures, and per-listing photos + details. If the user has not supplied an image, ask for it rather than shipping a gray placeholder; agent headshots and contact details can be pulled from assets/agents/roster.json by name. -->
+<helmet>
+<script src="./ds-base.js"></script>
+</helmet>
+<div style="width:1160px;height:980px;background:var(--tcs-black);display:flex;align-items:center;justify-content:center;gap:24px;padding:20px;box-sizing:border-box;font-family:var(--font-sans)">
+  <div style="width:528px;height:940px;overflow:hidden;border-radius:22px;flex:0 0 auto">
+    <iframe src="../market-update/MarketUpdate.dc.html" style="width:1080px;height:1920px;border:0;transform:scale(0.489);transform-origin:top left"></iframe>
+  </div>
+  <div style="width:528px;height:940px;overflow:hidden;border-radius:22px;flex:0 0 auto">
+    <iframe src="../market-top-listings/TopListings.dc.html" style="width:1080px;height:1920px;border:0;transform:scale(0.489);transform-origin:top left"></iframe>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: 1160, &quot;height&quot;: 980 }
+}"></script>
+</body>
+</html>

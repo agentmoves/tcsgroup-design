@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<!-- @template name="Property Wealth Report" description="One-page homeowner equity report — snapshot, purchase/equity position, three ways to use equity, neighborhood comps. Printable letter/A4." -->
+<!-- ASK FIRST — do not invent or placeholder these. Before populating this template, ask the user for: the property address, purchase date and purchase price, current estimated value, mortgage balance, comparable sales, and the agent (name, headshot, phone, email). If the user has not supplied an image, ask for it rather than shipping a gray placeholder; agent headshots and contact details can be pulled from assets/agents/roster.json by name. -->
+<helmet>
+<script src="./ds-base.js"></script>
+<script src="./doc-page.js"></script>
+<style>doc-page:not(:defined){visibility:hidden}</style>
+</helmet>
+<doc-page>
+  <section class="page" style="display:flex;flex-direction:column;font-family:var(--font-sans);color:var(--tcs-ink);background:#fff">
+
+    <!-- Masthead -->
+    <div style="background:var(--tcs-navy);color:#fff;padding:0.3in 0.5in;display:flex;align-items:center;justify-content:space-between;gap:0.3in">
+      <div>
+        <div style="font-size:8.5pt;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--tcs-salmon)">Your Property Wealth Snapshot</div>
+        <div style="font-family:var(--font-display);font-weight:800;font-size:21pt;line-height:1.1;letter-spacing:-.02em;margin-top:3pt">{{ address }}</div>
+        <div style="font-size:10pt;color:var(--tcs-sky);margin-top:2pt">Prepared for {{ clientName }}</div>
+      </div>
+      <img src="../../assets/logo-mark-white.png" alt="TCS Group" style="height:0.42in;width:auto;flex:0 0 auto" />
+    </div>
+
+    <!-- Headline equity band -->
+    <div style="display:grid;grid-template-columns:1.55fr 1fr;gap:0.14in;padding:0.18in 0.5in 0.06in">
+      <div style="background:var(--tcs-salmon);color:#fff;border-radius:10pt;padding:0.15in 0.2in">
+        <div style="font-size:8pt;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.9)">Estimated Equity Gained Since Purchase</div>
+        <div style="font-family:var(--font-display);font-weight:900;font-size:22pt;line-height:1.08;letter-spacing:-.02em;margin-top:2pt;white-space:nowrap">{{ equityGained }}</div>
+        <div style="font-size:8.5pt;line-height:1.4;color:rgba(255,255,255,.92);margin-top:3pt">Growth above the original estimated down payment, after today's estimated mortgage balance.</div>
+      </div>
+      <div style="background:var(--tcs-sky);color:var(--tcs-navy);border-radius:10pt;padding:0.15in 0.2in">
+        <div style="font-size:7.5pt;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--tcs-navy-600);white-space:nowrap">ZIP {{ zip }} · 1-Year Change</div>
+        <div style="font-family:var(--font-display);font-weight:900;font-size:25pt;line-height:1.05;letter-spacing:-.02em;margin-top:2pt">{{ zipChange }}</div>
+        <div style="font-size:8.5pt;line-height:1.4;color:var(--tcs-slate-600);margin-top:3pt">Home values moved higher year over year, adding momentum to a long-term equity story.</div>
+      </div>
+    </div>
+
+    <!-- Purchase overview -->
+    <div style="padding:0.12in 0.5in 0;min-height:0">
+      <div style="font-size:8.5pt;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--tcs-salmon);border-bottom:1.5pt solid var(--tcs-navy);padding-bottom:3pt">Purchase Overview &amp; Today's Equity Position</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.12in;margin-top:0.1in">
+        <div style="background:var(--tcs-cloud);border-radius:8pt;padding:0.14in 0.12in;text-align:center">
+          <div style="font-size:7.5pt;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--tcs-slate)">Purchase Price</div>
+          <div style="font-family:var(--font-display);font-weight:800;font-size:14pt;color:var(--tcs-navy);margin-top:3pt">{{ purchasePrice }}</div>
+        </div>
+        <div style="background:var(--tcs-cloud);border-radius:8pt;padding:0.14in 0.12in;text-align:center">
+          <div style="font-size:7.5pt;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--tcs-slate)">Est. Original Loan</div>
+          <div style="font-family:var(--font-display);font-weight:800;font-size:14pt;color:var(--tcs-navy);margin-top:3pt">{{ originalLoan }}</div>
+        </div>
+        <div style="background:var(--tcs-cloud);border-radius:8pt;padding:0.14in 0.12in;text-align:center">
+          <div style="font-size:7.5pt;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--tcs-slate)">Est. Mortgage Balance</div>
+          <div style="font-family:var(--font-display);font-weight:800;font-size:14pt;color:var(--tcs-navy);margin-top:3pt">{{ mortgageBalance }}</div>
+        </div>
+        <div style="background:var(--tcs-cloud);border-radius:8pt;padding:0.14in 0.12in;text-align:center">
+          <div style="font-size:7.5pt;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--tcs-slate)">Current Value Range</div>
+          <div style="font-family:var(--font-display);font-weight:800;font-size:12.5pt;color:var(--tcs-navy);margin-top:3pt">{{ valueRange }}</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.12in;margin-top:0.1in">
+        <div style="border:1.5pt solid var(--tcs-navy);border-radius:8pt;padding:0.13in 0.18in;display:flex;align-items:center;justify-content:space-between;gap:0.1in">
+          <span style="font-size:8.5pt;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--tcs-navy)">Net Equity Range</span>
+          <span style="font-family:var(--font-display);font-weight:900;font-size:14pt;color:var(--tcs-navy)">{{ netEquity }}</span>
+        </div>
+        <div style="border:1.5pt solid var(--tcs-salmon);border-radius:8pt;padding:0.13in 0.18in;display:flex;align-items:center;justify-content:space-between;gap:0.1in">
+          <span style="font-size:8.5pt;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--tcs-salmon)">Equity Gained</span>
+          <span style="font-family:var(--font-display);font-weight:900;font-size:14pt;color:var(--tcs-salmon)">{{ equityGained }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Three ways -->
+    <div style="padding:0.14in 0.5in 0;min-height:0">
+      <div style="font-size:8.5pt;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--tcs-salmon);border-bottom:1.5pt solid var(--tcs-navy);padding-bottom:3pt">Three Smart Ways To Use This Equity</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.12in;margin-top:0.1in">
+        <div style="background:var(--tcs-navy);color:#fff;border-radius:8pt;padding:0.16in 0.16in">
+          <div style="font-family:var(--font-display);font-weight:900;font-size:12pt;letter-spacing:.04em">UPSIZE</div>
+          <div style="width:0.3in;height:2.5pt;background:var(--tcs-salmon);border-radius:2pt;margin:5pt 0 6pt"></div>
+          <div style="font-size:8.5pt;line-height:1.45;color:rgba(255,255,255,.85)">Use built-up equity toward a larger home, better layout, or next neighborhood.</div>
+        </div>
+        <div style="background:var(--tcs-navy);color:#fff;border-radius:8pt;padding:0.16in 0.16in">
+          <div style="font-family:var(--font-display);font-weight:900;font-size:12pt;letter-spacing:.04em">INVEST</div>
+          <div style="width:0.3in;height:2.5pt;background:var(--tcs-salmon);border-radius:2pt;margin:5pt 0 6pt"></div>
+          <div style="font-size:8.5pt;line-height:1.45;color:rgba(255,255,255,.85)">Convert part of the gain into a rental or second-property strategy.</div>
+        </div>
+        <div style="background:var(--tcs-navy);color:#fff;border-radius:8pt;padding:0.16in 0.16in">
+          <div style="font-family:var(--font-display);font-weight:900;font-size:12pt;letter-spacing:.04em">RENOVATE</div>
+          <div style="width:0.3in;height:2.5pt;background:var(--tcs-salmon);border-radius:2pt;margin:5pt 0 6pt"></div>
+          <div style="font-size:8.5pt;line-height:1.45;color:rgba(255,255,255,.85)">Fund improvements that support lifestyle now and resale strength later.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Neighborhood insight -->
+    <div style="flex:1;min-height:0;padding:0.14in 0.5in 0;display:flex;flex-direction:column">
+      <div style="font-size:8.5pt;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--tcs-salmon);border-bottom:1.5pt solid var(--tcs-navy);padding-bottom:3pt">Neighborhood Insight</div>
+      <p style="font-size:9pt;line-height:1.5;color:var(--tcs-slate-600);margin:0.09in 0 0.09in">{{ insight }}</p>
+      <table style="width:100%;border-collapse:collapse;font-size:9pt">
+        <thead>
+          <tr style="background:var(--tcs-navy);color:#fff">
+            <th style="text-align:left;padding:6pt 10pt;font-size:7.5pt;font-weight:800;letter-spacing:.08em;text-transform:uppercase">Nearby Sold</th>
+            <th style="text-align:center;padding:6pt 8pt;font-size:7.5pt;font-weight:800;letter-spacing:.08em;text-transform:uppercase">Distance</th>
+            <th style="text-align:center;padding:6pt 8pt;font-size:7.5pt;font-weight:800;letter-spacing:.08em;text-transform:uppercase">Sold Date</th>
+            <th style="text-align:center;padding:6pt 8pt;font-size:7.5pt;font-weight:800;letter-spacing:.08em;text-transform:uppercase">Beds/Baths</th>
+            <th style="text-align:right;padding:6pt 10pt;font-size:7.5pt;font-weight:800;letter-spacing:.08em;text-transform:uppercase">Sold Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <sc-for list="{{ comps }}" as="c" hint-placeholder-count="4">
+            <tr style="border-bottom:0.75pt solid var(--tcs-line)">
+              <td style="padding:6pt 10pt;font-weight:600;color:var(--tcs-ink)">{{ c.address }}</td>
+              <td style="padding:6pt 8pt;text-align:center;color:var(--tcs-slate-600)">{{ c.distance }}</td>
+              <td style="padding:6pt 8pt;text-align:center;color:var(--tcs-slate-600)">{{ c.date }}</td>
+              <td style="padding:6pt 8pt;text-align:center;color:var(--tcs-slate-600)">{{ c.beds }}</td>
+              <td style="padding:6pt 10pt;text-align:right;font-family:var(--font-display);font-weight:800;color:var(--tcs-navy)">{{ c.price }}</td>
+            </tr>
+          </sc-for>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Footer CTA -->
+    <div style="margin:0.14in 0.5in 0;background:var(--tcs-sky);border-radius:8pt;padding:0.11in 0.22in;font-size:9.5pt;font-weight:600;color:var(--tcs-navy);text-align:center">
+      A quick pricing review can show how much of this equity could be converted into the next move.
+    </div>
+    <div style="margin-top:0.13in;background:var(--tcs-navy);color:#fff;padding:0.13in 0.5in;display:flex;align-items:center;justify-content:space-between;gap:0.2in">
+      <div style="font-size:9.5pt;font-weight:700">{{ agentName }} &nbsp;|&nbsp; {{ agentEmail }} &nbsp;|&nbsp; {{ agentPhone }}</div>
+      <div style="font-size:7.5pt;color:rgba(255,255,255,.6);text-align:right;max-width:2.6in;line-height:1.35">Estimates only; not an appraisal. Figures based on public data and current market conditions.</div>
+    </div>
+  </section>
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;clientName&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;Annie Tester&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Client&quot; },
+  &quot;address&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;406 Brighton Cir, Devon, PA 19333&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Client&quot; },
+  &quot;zip&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;19333&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Client&quot; },
+  &quot;purchasePrice&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;$528,000&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Equity&quot; },
+  &quot;originalLoan&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;$422,400&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Equity&quot; },
+  &quot;mortgageBalance&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;$285,423&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Equity&quot; },
+  &quot;valueRange&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;$1,080,000–$1,200,000&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Equity&quot; },
+  &quot;netEquity&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;$795,000–$915,000&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Equity&quot; },
+  &quot;equityGained&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;$689,000–$809,000&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Equity&quot; },
+  &quot;zipChange&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;+6.4%&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Equity&quot; },
+  &quot;insight&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Neighborhood&quot; },
+  &quot;agentName&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;Ima Realtor&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Agent&quot; },
+  &quot;agentEmail&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;testing@tcsgroup.com&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Agent&quot; },
+  &quot;agentPhone&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;(215) 692-6636&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Agent&quot; }
+}">
+const COMPS = [
+  { address: '596 Tanglewood Ln', distance: '0.14 mi', date: 'Apr 2026', beds: '4 / 3', price: '$1.65M' },
+  { address: '213 Spencer Rd', distance: '0.49 mi', date: 'May 2026', beds: '5 / 4.5', price: '$2.00M' },
+  { address: '650 Timber Ln', distance: '0.56 mi', date: 'May 2026', beds: '4 / 3.5', price: '$1.60M' },
+  { address: '322 Devon State Rd', distance: '0.60 mi', date: 'May 2026', beds: '4 / 2.5', price: '$1.085M' },
+];
+
+class Component extends DCLogic {
+  renderVals() {
+    const p = this.props || {};
+    return {
+      clientName: p.clientName || 'Annie Tester',
+      address: p.address || '406 Brighton Cir, Devon, PA 19333',
+      zip: p.zip || '19333',
+      zipChange: p.zipChange || '+6.4%',
+      equityGained: p.equityGained || '$689,000–$809,000',
+      netEquity: p.netEquity || '$795,000–$915,000',
+      purchasePrice: p.purchasePrice || '$528,000',
+      originalLoan: p.originalLoan || '$422,400',
+      mortgageBalance: p.mortgageBalance || '$285,423',
+      valueRange: p.valueRange || '$1,080,000–$1,200,000',
+      insight: p.insight || 'Recent sold activity near your property shows strong demand: nearby sales included $1.65M on Tanglewood Ln, $2.00M on Spencer Rd, $1.60M on Timber Ln, and $1.085M on Devon State Rd. In the same ZIP, homes are moving in a competitive market where pricing power remains seller-friendly.',
+      agentName: p.agentName || 'Ima Realtor',
+      agentEmail: p.agentEmail || 'testing@tcsgroup.com',
+      agentPhone: p.agentPhone || '(215) 692-6636',
+      comps: COMPS,
+    };
+  }
+}
+</script>
+</body>
+</html>

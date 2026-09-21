@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<!-- @template name="Open House Social Post" description="Instagram 4:5 Open House post — full-bleed listing photo, date/time, hosting agents, branded overlay." -->
+<!-- ASK FIRST — do not invent or placeholder these. Before populating this template, ask the user for: listing photo, property address, open-house date and time window, price, beds/baths/sqft, and the hosting agent(s) (name, headshot, phone). If the user has not supplied an image, ask for it rather than shipping a gray placeholder; agent headshots and contact details can be pulled from assets/agents/roster.json by name. -->
+<helmet>
+<script src="./ds-base.js"></script>
+<script src="../../assets/image-slot.js"></script>
+</helmet>
+<div style="position:relative;width:1080px;height:1350px;overflow:hidden;font-family:var(--font-sans);background:var(--tcs-navy)">
+  <!-- Full-bleed listing photo -->
+  <image-slot id="oh-listing-photo" shape="rect" placeholder="Drop the listing / property photo"></image-slot>
+
+  <!-- Logo top-right -->
+  <img src="../../assets/logo-kw-white.png" alt="TCS Group KW" style="position:absolute;top:56px;right:56px;height:60px;width:auto;z-index:3;pointer-events:none" />
+
+  <!-- Bottom scrim -->
+  <div style="position:absolute;left:0;right:0;bottom:0;height:620px;background:linear-gradient(180deg,rgba(15,22,38,0) 0%,rgba(15,22,38,.35) 40%,rgba(15,22,38,.82) 100%);z-index:2;pointer-events:none"></div>
+
+  <!-- Overlay content -->
+  <div style="position:absolute;left:64px;right:64px;bottom:70px;z-index:3;pointer-events:none">
+    <div style="font-family:var(--font-display);font-size:104px;line-height:0.92;letter-spacing:-0.03em;color:#fff">
+      <span style="font-weight:500">Open </span><span style="font-weight:800">House</span>
+    </div>
+    <div style="display:inline-block;background:var(--tcs-sky);color:var(--tcs-navy);font-size:26px;font-weight:800;letter-spacing:.02em;padding:12px 26px;border-radius:var(--radius-pill);margin:22px 0 30px;text-transform:uppercase">{{ address }}</div>
+
+    <div style="display:flex;align-items:center;gap:40px">
+      <!-- Date / time -->
+      <div style="display:flex;align-items:center;gap:28px;color:#fff">
+        <div style="font-size:30px;font-weight:800;text-transform:uppercase;line-height:1.15">{{ eventDay }}<br>{{ eventDate }}</div>
+        <div style="font-size:30px;font-weight:800;text-transform:uppercase;line-height:1.2">{{ timeRange }}</div>
+      </div>
+      <div style="width:2px;height:88px;background:rgba(255,255,255,.5)"></div>
+      <!-- Hosted by -->
+      <div style="color:#fff">
+        <div style="font-size:26px;font-weight:800;text-transform:uppercase;letter-spacing:.04em">Hosted by:</div>
+        <div style="font-size:24px;font-weight:700;margin-top:6px">{{ host1 }}</div>
+        <div style="font-size:24px;font-weight:700">{{ host2 }}</div>
+      </div>
+      <!-- Agent photos -->
+      <div style="display:flex;gap:16px;margin-left:auto;pointer-events:auto">
+        <div style="width:130px;height:150px;border-radius:0 0 18px 18px;overflow:hidden;border:2px solid rgba(255,255,255,.3)">
+          <image-slot id="oh-agent-1" shape="rect" placeholder="Agent 1"></image-slot>
+        </div>
+        <div style="width:130px;height:150px;border-radius:0 0 18px 18px;overflow:hidden;border:2px solid rgba(255,255,255,.3)">
+          <image-slot id="oh-agent-2" shape="rect" placeholder="Agent 2"></image-slot>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: 1080, &quot;height&quot;: 1350 },
+  &quot;address&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;1234 Whatever Ln, Philadelphia&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Event&quot; },
+  &quot;eventDay&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;Sunday&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Event&quot; },
+  &quot;eventDate&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;Jan 01&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Event&quot; },
+  &quot;timeRange&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;11 AM – 2 PM&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Event&quot; },
+  &quot;host1&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;Agent One&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Hosts&quot; },
+  &quot;host2&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;Agent Two&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Hosts&quot; }
+}">
+class Component extends DCLogic {
+  renderVals() {
+    const p = this.props || {};
+    return {
+      address: p.address || '1234 Whatever Ln, Philadelphia',
+      eventDay: p.eventDay || 'Sunday',
+      eventDate: p.eventDate || 'Jan 01',
+      timeRange: p.timeRange || '11 AM – 2 PM',
+      host1: p.host1 || 'Agent One',
+      host2: p.host2 || 'Agent Two',
+    };
+  }
+}
+</script>
+</body>
+</html>

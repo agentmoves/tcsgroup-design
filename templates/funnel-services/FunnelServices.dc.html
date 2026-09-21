@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<!-- @template name="Funnel — Services + Consult" description="Niche services landing page — hero, services offered, and a booking-widget iframe slot for scheduling a consult. Paste your booking embed into the slot." -->
+<!-- ASK FIRST — do not invent or placeholder these. Before populating this template, ask the user for: the niche/audience, the services list, the booking-widget embed code, and the agent (name, headshot, title, contact info). If the user has not supplied an image, ask for it rather than shipping a gray placeholder; agent headshots and contact details can be pulled from assets/agents/roster.json by name. -->
+<helmet>
+<script src="./ds-base.js"></script>
+</helmet>
+<div style="font-family:var(--font-sans);background:var(--tcs-paper)">
+
+  <!-- Top bar -->
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:22px 56px;background:#fff;border-bottom:1px solid var(--border-default)">
+    <img src="../../assets/logo-mark-black.png" alt="TCS Group" style="height:40px;width:auto" />
+    <a href="tel:2156926636" style="font-weight:800;color:var(--tcs-navy);font-size:17px">(215) 692-6636</a>
+  </div>
+
+  <!-- Hero -->
+  <div style="background:linear-gradient(140deg,#1A2A47,#223659 60%,#33507F);color:#fff;padding:72px 56px">
+    <div style="max-width:1160px;margin:0 auto">
+      <span style="font-size:14px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--tcs-salmon)">{{ eyebrow }}</span>
+      <h1 style="font-family:var(--font-display);font-weight:800;font-size:60px;line-height:1.03;letter-spacing:-.03em;color:#fff;margin:16px 0 16px;max-width:780px">{{ headline }}</h1>
+      <p style="font-size:21px;line-height:1.6;color:rgba(255,255,255,.82);max-width:640px;margin:0">{{ subhead }}</p>
+    </div>
+  </div>
+
+  <!-- Services -->
+  <div style="max-width:1160px;margin:0 auto;padding:64px 56px 24px">
+    <div style="font-size:14px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--tcs-salmon)">What we offer</div>
+    <h2 style="font-family:var(--font-display);font-weight:800;font-size:40px;letter-spacing:-.02em;color:var(--tcs-navy);margin:8px 0 32px">How we help you</h2>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+      <sc-for list="{{ services }}" as="s" hint-placeholder-count="3">
+        <div style="background:#fff;border:1px solid var(--border-default);border-radius:16px;box-shadow:var(--shadow-sm);padding:28px">
+          <div style="width:46px;height:46px;border-radius:12px;background:var(--tcs-salmon-100);color:var(--tcs-salmon-600);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;margin-bottom:16px">{{ s.num }}</div>
+          <div style="font-family:var(--font-display);font-weight:800;font-size:22px;color:var(--tcs-navy)">{{ s.title }}</div>
+          <div style="width:40px;height:4px;background:var(--tcs-salmon);border-radius:2px;margin:12px 0 14px"></div>
+          <div style="font-size:16px;line-height:1.6;color:var(--tcs-slate-600)">{{ s.desc }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- Consult / booking -->
+  <div style="max-width:960px;margin:0 auto;padding:48px 56px 80px">
+    <div style="background:#fff;border:1px solid var(--border-default);border-radius:20px;box-shadow:var(--shadow-md);padding:40px;text-align:center">
+      <div style="font-size:14px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--tcs-salmon)">Book a consult</div>
+      <h2 style="font-family:var(--font-display);font-weight:800;font-size:36px;letter-spacing:-.02em;color:var(--tcs-navy);margin:8px 0 6px">{{ consultTitle }}</h2>
+      <p style="font-size:18px;color:var(--tcs-slate-600);max-width:560px;margin:0 auto 28px">{{ consultNote }}</p>
+      <!-- ▼▼ BOOKING SLOT: replace this block with your scheduling widget iframe / embed code ▼▼ -->
+      <div style="border:2px dashed var(--tcs-slate-300);border-radius:14px;background:var(--tcs-cloud);min-height:440px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:32px;color:var(--tcs-slate)">
+        <span style="font-size:40px">🗓</span>
+        <div style="font-weight:800;color:var(--tcs-navy);font-size:18px">Embed your booking widget here</div>
+        <div style="font-size:15px;max-width:420px">Paste your scheduling iframe / embed code (e.g. Calendly, Acuity, or your CRM booking widget) to replace this placeholder.</div>
+      </div>
+      <!-- ▲▲ END BOOKING SLOT ▲▲ -->
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div style="background:var(--tcs-navy);color:rgba(255,255,255,.7);text-align:center;padding:34px;font-size:15px">
+    <img src="../../assets/logo-kw-white.png" alt="TCS Group" style="height:34px;width:auto;margin-bottom:12px" />
+    <div>TCS Group at Keller Williams · (215) 692-6636 · tcsgroup.com</div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: 1200, &quot;height&quot;: 900 },
+  &quot;eyebrow&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;New Construction · Philadelphia&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Hero&quot; },
+  &quot;headline&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;Buying new construction? We make it simple.&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Hero&quot; },
+  &quot;subhead&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;From builder contracts to walkthroughs and closing, our team guides you through every step of a new-construction purchase.&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Hero&quot; },
+  &quot;consultTitle&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;Schedule your free consult&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Consult&quot; },
+  &quot;consultNote&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;Pick a time that works for you and we'll map out your plan together.&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Consult&quot; }
+}">
+class Component extends DCLogic {
+  renderVals() {
+    const p = this.props || {};
+    return {
+      eyebrow: p.eyebrow || 'New Construction · Philadelphia',
+      headline: p.headline || 'Buying new construction? We make it simple.',
+      subhead: p.subhead || 'From builder contracts to walkthroughs and closing, our team guides you through every step of a new-construction purchase.',
+      consultTitle: p.consultTitle || 'Schedule your free consult',
+      consultNote: p.consultNote || 'Pick a time that works for you and we\u2019ll map out your plan together.',
+      services: (p.services && p.services.length) ? p.services : [
+        { num: '1', title: 'Builder Negotiation', desc: 'We review contracts and negotiate upgrades, incentives, and price on your behalf.' },
+        { num: '2', title: 'Walkthroughs & Inspections', desc: 'Independent inspections and punch-list support so nothing gets missed before closing.' },
+        { num: '3', title: 'Financing Guidance', desc: 'Connect with trusted lenders and understand every number before you commit.' },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>

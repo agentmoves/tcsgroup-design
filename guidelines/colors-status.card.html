@@ -1,0 +1,18 @@
+<!-- @dsCard group="Colors" viewport="700x180" name="Status" subtitle="Semantic feedback colors" -->
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body{margin:0;padding:20px;background:var(--tcs-paper);font-family:var(--font-sans);color:var(--text-body)}
+  .sw{display:flex;gap:14px;flex-wrap:wrap}
+  .chip{display:flex;flex-direction:column;gap:8px}
+  .box{width:120px;height:72px;border-radius:12px;border:1px solid var(--border-default)}
+  .nm{font-size:12px;font-weight:700;color:var(--text-strong)}
+  .hex{font-family:var(--font-mono);font-size:11px;color:var(--text-muted)}
+  .row{display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap}
+  .lbl{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--tcs-slate)}
+</style></head><body><div class="sw">
+<div class="chip"><div class="box" style="background:var(--status-success)"></div><span class="nm">Success</span><span class="hex">#2E9E6B</span></div>
+<div class="chip"><div class="box" style="background:var(--status-warning)"></div><span class="nm">Warning</span><span class="hex">#D9A441</span></div>
+<div class="chip"><div class="box" style="background:var(--status-danger)"></div><span class="nm">Danger</span><span class="hex">#E4574F</span></div>
+<div class="chip"><div class="box" style="background:var(--status-info)"></div><span class="nm">Info</span><span class="hex">#33507F</span></div>
+</div></body></html>

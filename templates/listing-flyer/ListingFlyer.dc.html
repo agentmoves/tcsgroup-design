@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<!-- @template name="Listing Flyer" description="Printable 8.5×11 listing flyer — address header, description, highlights, listing photos, agent card, branded footer." -->
+<!-- Before filling this in for a real listing, confirm with the user: property address, beds/baths/sqft, a short description, 3 highlight bullets, listing photos, and agent contact info. Ask rather than inventing any of these. Text auto-shrinks to always fit on this single fixed 850×1100 page — never add scroll or a second page. -->
+<helmet>
+<script src="./ds-base.js"></script>
+<script src="../../assets/image-slot.js"></script>
+</helmet>
+<div style="position:relative;width:850px;height:1100px;overflow:hidden;font-family:var(--font-sans);background:#fff;color:var(--tcs-ink)">
+
+  <!-- Header -->
+  <div style="background:var(--tcs-navy);color:#fff;padding:56px 56px 40px">
+    <div style="font-family:var(--font-display);font-weight:800;font-size:52px;line-height:1.02;letter-spacing:-0.02em;white-space:pre-line">{{ address }}</div>
+    <div style="font-size:24px;font-weight:700;margin-top:14px">{{ specs }}</div>
+    <div style="height:2px;background:#fff;margin-top:26px;opacity:.9"></div>
+  </div>
+
+  <!-- Body -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:34px;padding:40px 56px 0">
+    <!-- Left: copy -->
+    <div style="max-height:518px;overflow:hidden">
+      <div ref="{{ copyRef }}" style="font-size:17px">
+        <p style="line-height:1.6;margin:0 0 1.06em;color:var(--tcs-ink)">{{ description }}</p>
+        <div style="font-family:var(--font-display);font-weight:800;font-size:1.294em;color:var(--tcs-navy);margin:.47em 0 .6em">Highlights</div>
+        <ul style="margin:0;padding-left:1.3em;line-height:1.9;color:var(--tcs-ink)">
+          <li>{{ highlight1 }}</li>
+          <li>{{ highlight2 }}</li>
+          <li>{{ highlight3 }}</li>
+        </ul>
+      </div>
+    </div>
+    <!-- Right: photos -->
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <div style="height:250px;border-radius:14px;overflow:hidden;box-shadow:var(--shadow-sm)">
+        <image-slot id="flyer-photo-1" shape="rect" placeholder="Listing photo 1"></image-slot>
+      </div>
+      <div style="height:250px;border-radius:14px;overflow:hidden;box-shadow:var(--shadow-sm)">
+        <image-slot id="flyer-photo-2" shape="rect" placeholder="Listing photo 2"></image-slot>
+      </div>
+    </div>
+  </div>
+
+  <!-- Agent card + footer -->
+  <div style="position:absolute;left:0;right:0;bottom:0;display:grid;grid-template-columns:1fr 1fr;align-items:end">
+    <!-- Agent card -->
+    <div style="background:var(--tcs-sky);border-top-right-radius:120px;padding:0 48px 40px 56px">
+      <div style="width:210px;height:230px;margin:-40px 0 18px;border-radius:14px;overflow:hidden;border:4px solid #fff;box-shadow:var(--shadow-md)">
+        <image-slot id="flyer-agent-photo" shape="rect" src="{{ agentSrc }}" placeholder="Agent photo"></image-slot>
+      </div>
+      <div style="font-family:var(--font-display);font-weight:800;font-size:22px;color:var(--tcs-navy)">{{ agentTitle }}</div>
+      <div style="font-size:17px;font-weight:700;color:var(--tcs-ink);margin-top:6px">(M): {{ agentPhone }}</div>
+      <div style="font-size:17px;font-weight:700;color:var(--tcs-navy)">{{ agentEmail }}</div>
+    </div>
+    <!-- Brand footer -->
+    <div style="padding:0 56px 44px;text-align:right">
+      <img src="../../assets/logo-kw-black.png" alt="TCS Group KW" style="height:52px;width:auto;margin-bottom:14px" />
+      <div style="font-size:18px;font-weight:800;color:var(--tcs-ink)">(O): (215) 692-6636</div>
+      <div style="font-size:18px;font-weight:800;color:var(--tcs-navy)">tcsgroup.com</div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: 850, &quot;height&quot;: 1100 },
+  &quot;address&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;1234 Wherever Lane\nPhiladelphia, PA 19134&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Listing&quot; },
+  &quot;specs&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;4 Beds | 3.5 Baths | 3,700 SqFt.&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Listing&quot; },
+  &quot;description&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Listing&quot; },
+  &quot;highlight1&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;Fully renovated kitchen &amp; baths&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Highlights&quot; },
+  &quot;highlight2&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;Private outdoor space + parking&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Highlights&quot; },
+  &quot;highlight3&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;Steps from transit, dining &amp; parks&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Highlights&quot; },
+  &quot;agentTitle&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;Listing Agent&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Agent&quot; },
+  &quot;agentPhone&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;123-456-7890&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Agent&quot; },
+  &quot;agentEmail&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;agent@tcsgroup.com&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Agent&quot; },
+  &quot;agentPhoto&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;&quot;, &quot;options&quot;: [&quot;&quot;,&quot;ahjah-crosland&quot;,&quot;alex-delcourt&quot;,&quot;andrew-goldberg&quot;,&quot;boots-levinson&quot;,&quot;carmine-simmons&quot;,&quot;cassandra-green&quot;,&quot;christi-truesdell&quot;,&quot;claudia-brown&quot;,&quot;dan-deckelbaum&quot;,&quot;earl-gray&quot;,&quot;elaine-reby&quot;,&quot;eva-mitrushi&quot;,&quot;gaurav-gambhir&quot;,&quot;gavin-ludovici&quot;,&quot;gersham-fulcott&quot;,&quot;gregory-buck&quot;,&quot;griffin-cohen&quot;,&quot;jafar-oliai&quot;,&quot;jason-gizzi&quot;,&quot;john-bolaris&quot;,&quot;jon-hummel&quot;,&quot;joseph-cantz&quot;,&quot;juanita-jackson&quot;,&quot;karina-caroni&quot;,&quot;landry-nguema&quot;,&quot;liz-guerrero&quot;,&quot;madison-simone&quot;,&quot;matthew-milano&quot;,&quot;mia-purul&quot;,&quot;michael-edward-cohen&quot;,&quot;michael-gregor&quot;,&quot;michele-palumbo&quot;,&quot;morgan-harrington&quot;,&quot;pam-hooks&quot;,&quot;parker-ross&quot;,&quot;richard-yusko&quot;,&quot;rijon-simon&quot;,&quot;ryan-green&quot;,&quot;solon-alpohoritis&quot;,&quot;stephanie-churchill&quot;,&quot;suman-chakraborty&quot;,&quot;thomas-groll&quot;,&quot;tyler-doppelheuer&quot;,&quot;tyler-hopp&quot;,&quot;vladymir-valentin&quot;], &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Agent&quot; }
+}">
+class Component extends DCLogic {
+  // Resolve agent photo + contact from the design-system roster.
+  // Photo URL is derived from the loaded bundle's own location, so it resolves in
+  // consuming projects at any folder depth (a hardcoded ../../ path does not).
+  dsBase() {
+    try {
+      var s = document.querySelector('script[src*="_ds_bundle"]');
+      if (s && s.src) return s.src.replace(/\/_ds_bundle\.js.*$/, '');
+    } catch (e) {}
+    return '../..';
+  }
+  agentRec(slug) {
+    if (!slug) return null;
+    var ns = null;
+    for (var k in window) { if (k.indexOf('DesignSystem_') === 0) { ns = window[k]; break; } }
+    var rec = (ns && ns.Agent && ns.Agent.get) ? ns.Agent.get(slug) : null;
+    var key = String(slug).trim().toLowerCase().replace(/\s+/g, '-');
+    return Object.assign({ photo: this.dsBase() + '/assets/agents/' + (rec ? rec.slug : key) + '.png' }, rec || {});
+  }
+  copyRef = (el) => {
+    if (!el) return;
+    this._copyEl = el;
+    this.fitCopy();
+  };
+  componentDidUpdate() { this.fitCopy(); }
+  fitCopy() {
+    const el = this._copyEl;
+    if (!el || !el.parentElement) return;
+    const max = el.parentElement.clientHeight;
+    let size = 17;
+    el.style.fontSize = size + 'px';
+    let guard = 0;
+    while (el.scrollHeight > max && size > 10 && guard < 60) {
+      size -= 0.5;
+      el.style.fontSize = size + 'px';
+      guard++;
+    }
+  }
+  renderVals() {
+    const p = this.props || {};
+    const a = this.agentRec(p.agentPhoto);
+    return {
+      copyRef: this.copyRef,
+      address: p.address || '1234 Wherever Lane\nPhiladelphia, PA 19134',
+      specs: p.specs || '4 Beds | 3.5 Baths | 3,700 SqFt.',
+      description: p.description || 'Beautifully renovated home in the heart of the neighborhood, blending classic Philadelphia character with modern finishes throughout. Sun-filled living spaces, a chef\u2019s kitchen, and thoughtful upgrades from top to bottom.',
+      highlight1: p.highlight1 || 'Fully renovated kitchen & baths',
+      highlight2: p.highlight2 || 'Private outdoor space + parking',
+      highlight3: p.highlight3 || 'Steps from transit, dining & parks',
+      agentTitle: p.agentTitle || 'Listing Agent',
+      agentPhone: p.agentPhone || (a && a.phone) || '',
+      agentEmail: p.agentEmail || (a && a.email) || '',
+      agentSrc: (a && a.photo) || '',
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<!-- @template name="YouTube Script Deck" description="Two-column recording deck — clean animated audience view (left) + non-scrolling presenter script with reveal buttons (right). Each reveal = one [CLICK] in the script." -->
+<!-- ASK FIRST — do not invent or placeholder these. Before populating this template, ask the user for: the video topic, the talking points per beat, and any real data or listings referenced. If the user has not supplied an image, ask for it rather than shipping a gray placeholder; agent headshots and contact details can be pulled from assets/agents/roster.json by name. -->
+<helmet>
+<script src="./ds-base.js"></script>
+<style>
+  @keyframes ysdLift { from { transform: translateY(20px); } to { transform: translateY(0); } }
+  html, body { margin: 0; background: #0f1626; }
+</style>
+</helmet>
+<div style="position:fixed;inset:0;background:#0f1626;display:flex;align-items:center;justify-content:center;overflow:hidden;font-family:var(--font-sans)">
+  <div class="ysd-stage" style="width:1280px;height:720px;position:relative;display:grid;grid-template-columns:1fr 440px;background:var(--tcs-navy);overflow:hidden">
+
+    <!-- LEFT · audience -->
+    <div style="position:relative;padding:72px;display:flex;flex-direction:column;justify-content:center;gap:20px;color:#fff;overflow:hidden">
+      <sc-if value="{{ showLogo }}" hint-placeholder-val="{{ true }}">
+        <img src="../../assets/logo-mark-white.png" alt="TCS Group" style="position:absolute;top:56px;left:72px;height:44px;width:auto;align-self:flex-start;flex:0 0 auto" />
+      </sc-if>
+
+      <sc-if value="{{ eyebrow }}" hint-placeholder-val="TCS Group">
+        <div style="font-size:16px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--tcs-salmon)">{{ eyebrow }}</div>
+      </sc-if>
+
+      <sc-if value="{{ isStat }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <div style="font-family:var(--font-display);font-weight:800;font-size:132px;line-height:0.95;letter-spacing:-.04em;color:#fff">{{ statEl }}</div>
+          <div style="font-size:24px;font-weight:600;color:rgba(255,255,255,.8);margin-top:8px;max-width:520px">{{ statLabel }}</div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ title }}" hint-placeholder-val="Title">
+        <h1 style="font-family:var(--font-display);font-weight:800;font-size:60px;line-height:1.03;letter-spacing:-.03em;margin:0;color:#fff;max-width:640px">{{ title }}</h1>
+      </sc-if>
+
+      <sc-if value="{{ subtitle }}" hint-placeholder-val="">
+        <div style="font-size:24px;color:var(--tcs-sky);font-weight:600">{{ subtitle }}</div>
+      </sc-if>
+
+      <sc-if value="{{ showPhone }}" hint-placeholder-val="{{ false }}">
+        <div style="font-family:var(--font-mono);font-weight:700;font-size:40px;color:#fff;letter-spacing:.04em;margin-top:6px">{{ phoneEl }}</div>
+      </sc-if>
+
+      <div style="display:flex;flex-direction:column;gap:14px;margin-top:8px">
+        <sc-for list="{{ visibleReveals }}" as="r" hint-placeholder-count="0">
+          <div style="display:flex;align-items:flex-start;gap:14px;font-size:27px;font-weight:600;color:#fff;animation:ysdLift .42s cubic-bezier(.22,.61,.36,1)">
+            <span style="flex:0 0 auto;width:12px;height:12px;border-radius:50%;background:var(--tcs-salmon);margin-top:12px"></span>
+            <span>{{ r }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <!-- RIGHT · presenter script -->
+    <div style="background:#111a2e;border-left:1px solid rgba(255,255,255,.08);padding:40px 36px;display:flex;flex-direction:column;gap:18px;overflow:hidden">
+      <div style="display:flex;align-items:center;justify-content:space-between;font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.45)">
+        <span>Presenter Script</span>
+        <span>{{ slideLabel }}</span>
+      </div>
+      <div style="flex:1;display:flex;flex-direction:column;gap:16px;overflow:hidden">
+        <sc-for list="{{ visibleBeats }}" as="b" hint-placeholder-count="1">
+          <div style="font-size:20px;line-height:1.5;color:#eef2f8;font-weight:500;animation:ysdLift .42s cubic-bezier(.22,.61,.36,1)">{{ b }}</div>
+        </sc-for>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <button onClick="{{ prev }}" style="flex:0 0 auto;background:transparent;border:1px solid rgba(255,255,255,.2);color:#fff;font-size:20px;cursor:pointer;width:52px;height:52px;border-radius:var(--radius-pill)" style-hover="background:rgba(255,255,255,.08)">‹</button>
+        <button onClick="{{ advance }}" style="flex:1;background:var(--tcs-salmon);color:#fff;border:none;border-radius:var(--radius-pill);padding:16px;font-family:var(--font-sans);font-size:18px;font-weight:800;cursor:pointer;letter-spacing:.02em" style-hover="background:var(--tcs-salmon-600)">{{ advanceLabel }}</button>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: 1280, &quot;height&quot;: 720 }
+}">
+function ysdEase(p){ return 1 - Math.pow(1 - p, 3); }
+
+function CountUp({ to, prefix, suffix }) {
+  const [v, setV] = React.useState(0);
+  React.useEffect(() => {
+    let raf; const dur = 1200; const t0 = performance.now();
+    const tick = (t) => { const p = Math.min(1, (t - t0) / dur); setV(Math.round(ysdEase(p) * to)); if (p < 1) raf = requestAnimationFrame(tick); };
+    raf = requestAnimationFrame(tick); return () => cancelAnimationFrame(raf);
+  }, [to]);
+  return React.createElement('span', null, (prefix || '') + v.toLocaleString() + (suffix || ''));
+}
+
+function PhoneReveal({ number }) {
+  const digits = String(number).split('');
+  const [n, setN] = React.useState(0);
+  React.useEffect(() => {
+    setN(0); let i = 0;
+    const id = setInterval(() => { i++; setN(i); if (i >= digits.length) clearInterval(id); }, 95);
+    return () => clearInterval(id);
+  }, [number]);
+  return React.createElement('span', null, digits.map((d, idx) =>
+    React.createElement('span', { key: idx, style: { opacity: idx < n ? 1 : 0.16, transition: 'opacity .1s' } }, d)));
+}
+
+// ---- Slide data (edit me) ----
+const SLIDES = [
+  {
+    kind: 'intro',
+    eyebrow: 'TCS Group · Philadelphia',
+    title: 'How to Buy Your First Home in Philly',
+    subtitle: 'The Burn-To-Earn™ Formula',
+    phone: '(215) 692-6636',
+    beat0: 'Welcome. Introduce yourself and TCS Group. Let the phone number count in as you say it.',
+    reveals: ["Today's promise: you leave knowing your real numbers."],
+    beats: ['[CLICK] Tease the payoff — what they walk away with.'],
+  },
+  {
+    kind: 'points',
+    eyebrow: 'The renting trap',
+    title: '3 myths keeping you renting',
+    reveals: ['Myth 1 — You need 20% down', "Myth 2 — Your credit isn't good enough", "Myth 3 — Renting is the 'safe' choice"],
+    beat0: 'Set up the three myths — most buyers believe at least one of these.',
+    beats: ['[CLICK] Bust the 20%-down myth — assistance programs exist.', '[CLICK] Credit reality — the real minimums.', '[CLICK] The hidden cost of waiting.'],
+  },
+  {
+    kind: 'stat',
+    eyebrow: 'We see the math daily',
+    value: 4500, suffix: '+',
+    statLabel: 'Rental units TCS Group manages across Philadelphia & South Jersey',
+    reveals: ['Rent climbs ~5% every year', "Every payment builds someone else's equity"],
+    beat0: 'Hit them with the number — let it count up before you speak.',
+    beats: ['[CLICK] Rent keeps climbing.', '[CLICK] Owners build equity; renters build receipts.'],
+  },
+  {
+    kind: 'cta',
+    title: 'Run your numbers with us',
+    subtitle: 'Free Burn-To-Earn™ strategy session',
+    phone: '(215) 692-6636',
+    beat0: 'Call to action — book the free session and read the number aloud.',
+    reveals: ['tcsgroup.com'],
+    beats: ['[CLICK] Point to the site, then ask for the like + subscribe.'],
+  },
+];
+
+class Component extends DCLogic {
+  state = { slide: 0, step: 0 };
+
+  componentDidMount() {
+    this._scale = this._scale.bind(this);
+    this._key = this._key.bind(this);
+    this._scale();
+    window.addEventListener('resize', this._scale);
+    window.addEventListener('keydown', this._key);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._scale);
+    window.removeEventListener('keydown', this._key);
+  }
+  componentDidUpdate() { this._scale(); }
+
+  _scale() {
+    const el = document.querySelector('.ysd-stage');
+    if (!el) return;
+    const s = Math.min(window.innerWidth / 1280, window.innerHeight / 720);
+    el.style.transform = 'scale(' + s + ')';
+    el.style.transformOrigin = 'center';
+  }
+  _key(e) {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); this.advance(); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); this.back(); }
+  }
+  cur() { return SLIDES[this.state.slide]; }
+  advance() {
+    const rc = (this.cur().reveals || []).length;
+    if (this.state.step < rc) this.setState({ step: this.state.step + 1 });
+    else if (this.state.slide < SLIDES.length - 1) this.setState({ slide: this.state.slide + 1, step: 0 });
+  }
+  back() {
+    if (this.state.step > 0) this.setState({ step: this.state.step - 1 });
+    else if (this.state.slide > 0) {
+      const p = SLIDES[this.state.slide - 1];
+      this.setState({ slide: this.state.slide - 1, step: (p.reveals || []).length });
+    }
+  }
+  renderVals() {
+    const s = this.cur();
+    const step = this.state.step;
+    const reveals = s.reveals || [];
+    const beats = [s.beat0 || ''].concat(s.beats || []);
+    return {
+      showLogo: s.kind === 'intro' || s.kind === 'cta',
+      eyebrow: s.eyebrow || '',
+      isStat: s.kind === 'stat',
+      statEl: s.kind === 'stat' ? React.createElement(CountUp, { key: this.state.slide, to: s.value, prefix: s.prefix, suffix: s.suffix }) : null,
+      statLabel: s.statLabel || '',
+      title: s.title || '',
+      subtitle: s.subtitle || '',
+      showPhone: !!s.phone,
+      phoneEl: s.phone ? React.createElement(PhoneReveal, { key: this.state.slide, number: s.phone }) : null,
+      visibleReveals: reveals.slice(0, step),
+      visibleBeats: beats.slice(0, step + 1),
+      slideLabel: 'Slide ' + (this.state.slide + 1) + ' / ' + SLIDES.length,
+      slideNum: this.state.slide + 1,
+      total: SLIDES.length,
+      advanceLabel: step < reveals.length ? 'Reveal ▸' : (this.state.slide < SLIDES.length - 1 ? 'Next slide ▸' : 'End'),
+      advance: () => this.advance(),
+      prev: () => this.back(),
+    };
+  }
+}
+</script>
+</body>
+</html>

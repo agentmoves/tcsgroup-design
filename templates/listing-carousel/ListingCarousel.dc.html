@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<!-- @template name="Listing Carousel" description="1080×1080 full listing carousel — cover, four photo slides, details, CTA. Drop in listing photos + agent headshot." -->
+<!-- ASK FIRST — do not invent or placeholder these. Before populating this template, ask the user for: 4+ listing photos, property address, price, beds/baths/sqft, 3-4 feature highlights, and the agent (name, headshot, phone, email). If the user has not supplied an image, ask for it rather than shipping a gray placeholder; agent headshots and contact details can be pulled from assets/agents/roster.json by name. -->
+<helmet>
+<script src="./ds-base.js"></script>
+<script src="../../assets/image-slot.js"></script>
+<style>
+  .lc-post{--accent:var(--tcs-salmon)}
+  .lc-post[data-status="Under Contract"]{--accent:var(--tcs-navy-600)}
+  .lc-post[data-status="New Price"]{--accent:var(--status-warning)}
+  .lc-post[data-status="Open House"]{--accent:var(--tcs-sky-500)}
+  .lc-post[data-status="Sold"]{--accent:var(--status-success)}
+</style>
+</helmet>
+<div style="position:fixed;inset:0;background:#0f1626;display:flex;align-items:center;justify-content:center;overflow:hidden;font-family:var(--font-sans)">
+  <div class="lc-post lc-stage" data-status="{{ status }}" style="position:relative;width:1080px;height:1080px;overflow:hidden;background:var(--tcs-navy)">
+
+    <!-- COVER -->
+    <sc-if value="{{ isCover }}" hint-placeholder-val="{{ true }}">
+      <div style="position:absolute;inset:0">
+        <image-slot id="lc-cover" shape="rect" placeholder="Hero exterior photo"></image-slot>
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(22,33,58,.55) 0%,rgba(22,33,58,0) 32%,rgba(22,33,58,.85) 74%,rgba(22,33,58,.96) 100%)"></div>
+        <img src="../../assets/logo-mark-white.png" alt="TCS Group" style="position:absolute;top:52px;left:56px;height:52px;width:auto;z-index:3" />
+        <div style="position:absolute;left:0;right:0;bottom:0;padding:56px;display:flex;flex-direction:column;gap:16px;z-index:3">
+          <div style="display:inline-flex;align-self:flex-start;background:var(--accent);color:#fff;font-size:26px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:13px 26px;border-radius:999px">{{ status }}</div>
+          <div style="font-family:var(--font-display);font-weight:900;font-size:100px;line-height:.94;letter-spacing:-.035em;color:#fff">{{ price }}</div>
+          <div style="font-size:36px;font-weight:700;color:#fff">{{ address }}</div>
+          <div style="font-size:28px;color:var(--tcs-sky);font-weight:600">{{ locality }}</div>
+          <div style="font-size:24px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.75);margin-top:10px">Swipe →</div>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- PHOTO SLIDES -->
+    <sc-if value="{{ isPhoto }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;inset:0">
+        <image-slot id="{{ photoId }}" shape="rect" placeholder="Listing photo"></image-slot>
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(22,33,58,.35) 0%,rgba(22,33,58,0) 30%,rgba(22,33,58,.75) 100%)"></div>
+        <div style="position:absolute;left:48px;bottom:48px;display:inline-flex;background:var(--accent);color:#fff;font-size:30px;font-weight:800;padding:14px 28px;border-radius:14px;z-index:3">{{ caption }}</div>
+        <img src="../../assets/logo-mark-white.png" alt="TCS Group" style="position:absolute;right:48px;bottom:52px;height:42px;width:auto;z-index:3" />
+      </div>
+    </sc-if>
+
+    <!-- DETAILS -->
+    <sc-if value="{{ isDetails }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;inset:0;display:flex;flex-direction:column;background:#fff">
+        <div style="background:var(--accent);color:#fff;padding:44px 56px">
+          <div style="font-size:18px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.85)">The Details</div>
+          <div style="font-family:var(--font-display);font-weight:800;font-size:46px;letter-spacing:-.01em">{{ address }}</div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:32px 44px 8px">
+          <div style="background:#E7F5FA;border-radius:16px;padding:26px 20px;text-align:center">
+            <div style="font-family:var(--font-display);font-weight:900;font-size:52px;color:var(--tcs-navy);line-height:1">{{ beds }}</div>
+            <div style="font-size:19px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--tcs-slate);margin-top:6px">Beds</div>
+          </div>
+          <div style="background:#E7F5FA;border-radius:16px;padding:26px 20px;text-align:center">
+            <div style="font-family:var(--font-display);font-weight:900;font-size:52px;color:var(--tcs-navy);line-height:1">{{ baths }}</div>
+            <div style="font-size:19px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--tcs-slate);margin-top:6px">Baths</div>
+          </div>
+          <div style="background:#E7F5FA;border-radius:16px;padding:26px 20px;text-align:center">
+            <div style="font-family:var(--font-display);font-weight:900;font-size:52px;color:var(--tcs-navy);line-height:1">{{ sqft }}</div>
+            <div style="font-size:19px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--tcs-slate);margin-top:6px">Sq Ft</div>
+          </div>
+          <div style="background:#E7F5FA;border-radius:16px;padding:26px 20px;text-align:center">
+            <div style="font-family:var(--font-display);font-weight:900;font-size:52px;color:var(--tcs-navy);line-height:1">{{ year }}</div>
+            <div style="font-size:19px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--tcs-slate);margin-top:6px">Built</div>
+          </div>
+        </div>
+        <div style="flex:1;padding:20px 44px;display:flex;flex-direction:column;gap:14px">
+          <sc-for list="{{ features }}" as="f" hint-placeholder-count="4">
+            <div style="flex:1;display:flex;align-items:center;gap:18px;background:var(--tcs-cloud);border-radius:14px;padding:0 28px">
+              <span style="flex:0 0 auto;width:14px;height:14px;border-radius:50%;background:var(--accent)"></span>
+              <span style="font-size:30px;font-weight:600;color:var(--tcs-ink)">{{ f }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="background:var(--tcs-navy);color:#fff;padding:28px 44px;display:flex;align-items:center;justify-content:space-between">
+          <span style="font-size:26px;font-weight:600;color:var(--tcs-sky)">Est. monthly payment</span>
+          <span style="font-family:var(--font-display);font-weight:900;font-size:44px">{{ payment }}</span>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- CTA -->
+    <sc-if value="{{ isCta }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;inset:0;background:var(--tcs-navy);padding:70px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:22px;color:#fff">
+        <div style="width:260px;height:260px;border-radius:50%;overflow:hidden;border:8px solid var(--accent)">
+          <image-slot id="lc-agent" shape="circle" placeholder="Agent headshot"></image-slot>
+        </div>
+        <div style="font-family:var(--font-display);font-weight:900;font-size:62px;line-height:1.02;letter-spacing:-.03em;color:#fff;max-width:840px">Want to see it in person?</div>
+        <div style="font-size:30px;color:var(--tcs-sky);font-weight:600">Message us to book a private tour.</div>
+        <div style="margin-top:6px">
+          <div style="font-size:34px;font-weight:800;text-transform:uppercase;letter-spacing:.02em">{{ agentName }}</div>
+          <div style="font-size:30px;font-weight:700;color:rgba(255,255,255,.85);margin-top:4px">{{ agentPhone }}</div>
+        </div>
+        <img src="../../assets/logo-mark-white.png" alt="TCS Group" style="height:50px;width:auto;margin-top:12px" />
+      </div>
+    </sc-if>
+  </div>
+
+  <!-- Off-canvas nav -->
+  <div style="position:fixed;bottom:20px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:16px;background:rgba(17,26,46,.92);border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:8px 12px;z-index:50">
+    <button onClick="{{ prev }}" style="background:transparent;border:none;color:#fff;font-size:22px;cursor:pointer;width:40px;height:40px;border-radius:50%">‹</button>
+    <span style="color:rgba(255,255,255,.7);font-size:13px;font-weight:700;min-width:60px;text-align:center">{{ pos }}</span>
+    <button onClick="{{ next }}" style="background:transparent;border:none;color:#fff;font-size:22px;cursor:pointer;width:40px;height:40px;border-radius:50%">›</button>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: 1080, &quot;height&quot;: 1080 },
+  &quot;status&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;Just Listed&quot;, &quot;Under Contract&quot;, &quot;New Price&quot;, &quot;Sold&quot;, &quot;Coming Soon&quot;, &quot;Open House&quot;], &quot;default&quot;: &quot;Just Listed&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Listing&quot; },
+  &quot;price&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;$1,000,000&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Listing&quot; },
+  &quot;address&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;528 Berks Street&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Listing&quot; },
+  &quot;locality&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;Philadelphia, PA 19122&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Listing&quot; },
+  &quot;beds&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;4&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Specs&quot; },
+  &quot;baths&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;3&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Specs&quot; },
+  &quot;sqft&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;3,000&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Specs&quot; },
+  &quot;year&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;2008&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Specs&quot; },
+  &quot;payment&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;$6,240 / mo&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Specs&quot; },
+  &quot;caption1&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Photo captions&quot; },
+  &quot;caption2&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Photo captions&quot; },
+  &quot;caption3&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Photo captions&quot; },
+  &quot;caption4&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Photo captions&quot; },
+  &quot;feature1&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Features&quot; },
+  &quot;feature2&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Features&quot; },
+  &quot;feature3&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Features&quot; },
+  &quot;feature4&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Features&quot; },
+  &quot;agentName&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;Agent Name&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Agent&quot; },
+  &quot;agentPhone&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;(215) 692-6636&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Agent&quot; }
+}">
+const CAPTIONS = ['Living room', "Chef's kitchen", 'Primary suite', 'Outdoor space'];
+const ORDER = [
+  { kind: 'cover' },
+  { kind: 'photo', i: 0 }, { kind: 'photo', i: 1 }, { kind: 'photo', i: 2 }, { kind: 'photo', i: 3 },
+  { kind: 'details' },
+  { kind: 'cta' },
+];
+
+class Component extends DCLogic {
+  state = { i: 0 };
+  componentDidMount() {
+    this._scale = this._scale.bind(this); this._key = this._key.bind(this);
+    this._scale();
+    window.addEventListener('resize', this._scale);
+    window.addEventListener('keydown', this._key);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._scale);
+    window.removeEventListener('keydown', this._key);
+  }
+  componentDidUpdate() { this._scale(); }
+  _scale() {
+    const el = document.querySelector('.lc-stage');
+    if (!el) return;
+    const s = Math.min(window.innerWidth / 1080, (window.innerHeight - 120) / 1080);
+    el.style.transform = 'scale(' + s + ') translateY(-30px)';
+    el.style.transformOrigin = 'center';
+  }
+  _key(e) { if (e.key === 'ArrowRight') this.next(); else if (e.key === 'ArrowLeft') this.prev(); }
+  next() { this.setState({ i: Math.min(ORDER.length - 1, this.state.i + 1) }); }
+  prev() { this.setState({ i: Math.max(0, this.state.i - 1) }); }
+
+  renderVals() {
+    const p = this.props || {};
+    const cur = ORDER[this.state.i];
+    const caps = [p.caption1, p.caption2, p.caption3, p.caption4];
+    return {
+      isCover: cur.kind === 'cover',
+      isPhoto: cur.kind === 'photo',
+      isDetails: cur.kind === 'details',
+      isCta: cur.kind === 'cta',
+      photoId: cur.kind === 'photo' ? 'lc-photo-' + cur.i : '',
+      caption: cur.kind === 'photo' ? (caps[cur.i] || CAPTIONS[cur.i]) : '',
+      status: p.status || 'Just Listed',
+      price: p.price || '$1,000,000',
+      address: p.address || '528 Berks Street',
+      locality: p.locality || 'Philadelphia, PA 19122',
+      beds: p.beds || '4',
+      baths: p.baths || '3',
+      sqft: p.sqft || '3,000',
+      year: p.year || '2008',
+      payment: p.payment || '$6,240 / mo',
+      features: [
+        p.feature1 || 'Fully renovated kitchen & baths',
+        p.feature2 || 'Private outdoor space + parking',
+        p.feature3 || 'Steps from transit, dining & parks',
+        p.feature4 || 'Income-producing lower unit',
+      ],
+      agentName: p.agentName || 'Agent Name',
+      agentPhone: p.agentPhone || '(215) 692-6636',
+      pos: (this.state.i + 1) + ' / ' + ORDER.length,
+      next: () => this.next(),
+      prev: () => this.prev(),
+    };
+  }
+}
+</script>
+</body>
+</html>

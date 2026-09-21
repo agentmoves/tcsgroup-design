@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Burn-to-Earn™ Calculator — TCS Group</title>
+<link rel="stylesheet" href="../../styles.css">
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#223659"/><text x="50" y="60" font-family="sans-serif" font-size="30" font-weight="800" fill="#F0716D" text-anchor="middle">B2E</text></svg></template>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--tcs-cloud);font-family:var(--font-sans);color:var(--tcs-ink)}
+a{color:var(--tcs-navy-600);text-decoration:none}a:hover{color:var(--tcs-salmon-600)}
+.hdr{background:var(--tcs-navy);color:#fff;padding:32px 48px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.eyebrow{font-size:13px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--tcs-salmon)}
+.hdr h1{font-family:var(--font-display);font-weight:800;font-size:34px;line-height:1.1;letter-spacing:-.02em;margin:4px 0 0;color:#fff}
+.wrap{max-width:1220px;margin:0 auto;padding:32px 32px 56px;display:grid;grid-template-columns:400px minmax(0,1fr);gap:28px;align-items:start}
+@media(max-width:900px){.wrap{grid-template-columns:minmax(0,1fr)}}
+.panel{background:#fff;border:1px solid var(--tcs-line);border-radius:18px;box-shadow:var(--shadow-sm);padding:26px;display:flex;flex-direction:column;gap:20px}
+.lbl{display:block;font-size:14px;font-weight:700;color:var(--tcs-navy);margin-bottom:6px}
+.cap{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--tcs-salmon)}
+.cap-n{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--tcs-slate)}
+.in{width:100%;border:1.5px solid var(--tcs-line);border-radius:10px;padding:11px 14px;font-family:var(--font-sans);font-size:17px;font-weight:700;color:var(--tcs-navy);background:#fff;outline:none}
+.in:focus{border-color:var(--tcs-navy-600);box-shadow:0 0 0 3px rgba(51,80,127,.2)}
+.rng{width:100%;accent-color:var(--tcs-salmon);margin:0}
+.results{display:flex;flex-direction:column;gap:24px;min-width:0}
+.verdict{background:var(--tcs-salmon);color:#fff;border-radius:18px;padding:30px 34px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.verdict .big{font-family:var(--font-display);font-weight:900;font-size:64px;line-height:1;letter-spacing:-.03em;margin-top:6px}
+.grid6{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px}
+.vcard{background:#fff;border:1px solid var(--tcs-line);border-radius:14px;padding:18px 20px}
+.vcard.tint{background:var(--tcs-sky);border-color:var(--tcs-sky)}
+.vhead{display:flex;align-items:center;gap:10px}
+.num{width:26px;height:26px;border-radius:50%;background:var(--tcs-navy);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex:0 0 auto}
+.vname{font-size:14px;font-weight:800;color:var(--tcs-navy)}
+.vval{font-family:var(--font-display);font-weight:900;font-size:30px;color:var(--tcs-ink);margin-top:10px}
+.compare{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.rentcard{background:#fff;border:2px solid var(--tcs-salmon);border-radius:18px;padding:24px 26px}
+.owncard{background:var(--tcs-navy);border-radius:18px;padding:24px 26px;color:#fff}
+.tot{font-family:var(--font-display);font-weight:900;font-size:46px;line-height:1.05;margin:8px 0 14px}
+.row{display:flex;justify-content:space-between;font-size:15px;padding:7px 0;border-top:1px solid var(--tcs-line)}
+.owncard .row{border-top-color:rgba(255,255,255,.18)}
+.owncard .row span{color:rgba(255,255,255,.75)}
+.owncard .row strong{color:#fff}
+.outlook{background:#fff;border:1px solid var(--tcs-line);border-radius:18px;padding:24px 26px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:18px}
+.olbl{font-size:13px;font-weight:700;color:var(--tcs-slate);text-transform:uppercase;letter-spacing:.06em}
+.oval{font-family:var(--font-display);font-weight:900;font-size:34px;color:var(--tcs-navy);margin-top:4px}
+.cta{background:var(--tcs-sky);border-radius:18px;padding:22px 26px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.note{font-size:12px;line-height:1.5;color:var(--tcs-slate)}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div>
+    <div class="eyebrow">Burn-to-Earn™ Formula</div>
+    <h1>What renting is really costing you</h1>
+  </div>
+  <img src="../../assets/logo-mark-white.png" alt="TCS Group" style="height:46px;width:auto;flex:0 0 auto">
+</div>
+
+<div class="wrap">
+  <div class="panel">
+    <div class="cap">Your Numbers</div>
+    <div>
+      <label class="lbl" for="rent">Current monthly rent</label>
+      <input class="in" id="rent" type="number" value="2200">
+    </div>
+    <div>
+      <label class="lbl" for="home">Home price</label>
+      <input class="in" id="home" type="number" step="5000" value="350000">
+    </div>
+    <div>
+      <label class="lbl" for="down">Down payment — <span id="downPctL">14.3</span>% (<span id="downAmtL">$50,050</span>)</label>
+      <input class="rng" id="down" type="range" min="0" max="25" step="0.1" value="14.3">
+      <div style="font-size:13px;color:var(--tcs-slate);margin-top:4px">Loan amount: <strong id="loanL" style="color:var(--tcs-navy)">$299,950</strong></div>
+    </div>
+    <div style="border-top:1px solid var(--tcs-line);padding-top:18px;display:flex;flex-direction:column;gap:16px">
+      <div class="cap-n">Assumptions</div>
+      <div>
+        <label class="lbl" for="tax">Property tax rate — <span id="taxPctL">1.5</span>%</label>
+        <input class="rng" id="tax" type="range" min="0.5" max="3" step="0.1" value="1.5">
+      </div>
+      <div>
+        <label class="lbl" for="maint">Maintenance — <span id="maintPctL">1</span>% of value / yr</label>
+        <input class="rng" id="maint" type="range" min="0.5" max="2.5" step="0.1" value="1">
+      </div>
+      <div>
+        <label class="lbl" for="appr">Annual appreciation — <span id="apprPctL">4</span>%</label>
+        <input class="rng" id="appr" type="range" min="0" max="8" step="0.5" value="4">
+      </div>
+      <div>
+        <label class="lbl" for="ins">Annual insurance</label>
+        <input class="in" id="ins" type="number" step="100" value="1700">
+      </div>
+      <div>
+        <label class="lbl" for="benefit">Monthly tax benefit</label>
+        <input class="in" id="benefit" type="number" step="25" value="300">
+      </div>
+    </div>
+    <div class="note">Mortgage estimated at $600 per $100,000 borrowed (principal &amp; interest), per the Burn-to-Earn™ quick rule.</div>
+  </div>
+
+  <div class="results">
+    <div class="verdict">
+      <div>
+        <div style="font-size:13px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.9)" id="verdictL">Losing per month to rent</div>
+        <div class="big" id="gapL">$996</div>
+        <div style="font-size:17px;font-weight:600;color:rgba(255,255,255,.92);margin-top:6px"><span id="gapYearL">$11,954</span> over the first year</div>
+      </div>
+      <div style="text-align:right;flex:0 0 auto">
+        <div style="font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.85)">Equity in 5 years</div>
+        <div style="font-family:var(--font-display);font-weight:900;font-size:40px;line-height:1.05;margin-top:4px" id="equity5L">$143,116</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="cap" style="margin-bottom:14px">The 6 variables</div>
+      <div class="grid6">
+        <div class="vcard"><div class="vhead"><span class="num">1</span><span class="vname">Monthly Rent</span></div><div class="vval" id="v1">$2,200</div></div>
+        <div class="vcard"><div class="vhead"><span class="num">2</span><span class="vname">Mortgage Payment</span></div><div class="vval" id="v2">$1,800</div></div>
+        <div class="vcard"><div class="vhead"><span class="num">3</span><span class="vname">Tax &amp; Insurance</span></div><div class="vval" id="v3">$579</div></div>
+        <div class="vcard"><div class="vhead"><span class="num">4</span><span class="vname">Ownership Costs</span></div><div class="vval" id="v4">$292</div></div>
+        <div class="vcard tint"><div class="vhead"><span class="num">5</span><span class="vname">Opportunity Cost</span></div><div class="vval" id="v5" style="color:var(--tcs-navy)">$1,167</div><div style="font-size:12px;color:var(--tcs-navy-600);margin-top:2px">Appreciation you miss by renting</div></div>
+        <div class="vcard"><div class="vhead"><span class="num">6</span><span class="vname">Tax Benefit</span></div><div class="vval" id="v6" style="color:var(--status-success)">-$300</div></div>
+      </div>
+    </div>
+
+    <div class="compare">
+      <div class="rentcard">
+        <div style="font-size:13px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--tcs-salmon)">Total Cost of Renting</div>
+        <div class="tot" style="color:var(--tcs-navy)" id="rentTotalL">$3,366</div>
+        <div class="row"><span style="color:var(--tcs-slate-600)">Monthly rent</span><strong style="color:var(--tcs-navy)" id="r1">$2,200</strong></div>
+        <div class="row"><span style="color:var(--tcs-slate-600)">Opportunity cost</span><strong style="color:var(--tcs-navy)" id="r2">$1,167</strong></div>
+      </div>
+      <div class="owncard">
+        <div style="font-size:13px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--tcs-sky)">Total Cost of Owning</div>
+        <div class="tot" id="ownTotalL">$2,370</div>
+        <div class="row"><span>Mortgage</span><strong id="o1">$1,800</strong></div>
+        <div class="row"><span>Tax &amp; insurance</span><strong id="o2">$579</strong></div>
+        <div class="row"><span>Maintenance</span><strong id="o3">$292</strong></div>
+        <div class="row"><span>Tax benefit</span><strong style="color:var(--tcs-sky)" id="o4">-$300</strong></div>
+      </div>
+    </div>
+
+    <div class="outlook">
+      <div class="cap" style="margin-bottom:16px">If you buy instead of rent</div>
+      <div class="grid3">
+        <div><div class="olbl">Home value in 10 yrs</div><div class="oval" id="value10L">$518,085</div></div>
+        <div><div class="olbl">Appreciation gained</div><div class="oval" style="color:var(--tcs-salmon)" id="gain10L">$168,085</div></div>
+        <div><div class="olbl">Rent paid, 10 yrs</div><div class="oval" style="color:var(--tcs-slate-600)" id="rent10L">$303,600</div></div>
+      </div>
+    </div>
+
+    <div class="cta">
+      <div style="font-size:17px;font-weight:700;color:var(--tcs-navy)">Let's find out which programs you qualify for.</div>
+      <div style="font-family:var(--font-display);font-weight:800;font-size:22px;color:var(--tcs-navy)">(215) 692-6636</div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+  function money(n){ var v = Math.round(n); return (v<0?'-$':'$') + Math.abs(v).toLocaleString(); }
+  function val(id, fb){ var v = parseFloat($(id).value); return isNaN(v) ? fb : v; }
+
+  function calc(){
+    var rent = val('rent',0), homeValue = val('home',0), downPct = val('down',0),
+        taxPct = val('tax',0), maintPct = val('maint',0), apprPct = val('appr',0),
+        insurance = val('ins',0), taxBenefit = val('benefit',0);
+
+    var down = homeValue * (downPct/100);
+    var loan = Math.max(0, homeValue - down);
+    var mortgage = (loan/100000) * 600;                       // $600 per $100k borrowed
+    var taxIns = (homeValue * (taxPct/100) + insurance) / 12;
+    var maint = (homeValue * (maintPct/100)) / 12;
+    var opportunity = (homeValue * (apprPct/100)) / 12;       // appreciation missed by renting
+    var rentTotal = rent + opportunity;
+    var ownTotal = mortgage + taxIns + maint - taxBenefit;
+    var gap = rentTotal - ownTotal;
+
+    var value5 = homeValue * Math.pow(1 + apprPct/100, 5);
+    var value10 = homeValue * Math.pow(1 + apprPct/100, 10);
+    var equity5 = (value5 - homeValue) + down + (mortgage * 60 * 0.16);
+
+    $('downPctL').textContent = downPct;
+    $('downAmtL').textContent = money(down);
+    $('loanL').textContent = money(loan);
+    $('taxPctL').textContent = taxPct;
+    $('maintPctL').textContent = maintPct;
+    $('apprPctL').textContent = apprPct;
+
+    $('verdictL').textContent = gap >= 0 ? 'Losing per month to rent' : 'Renting costs less per month';
+    $('gapL').textContent = money(Math.abs(gap));
+    $('gapYearL').textContent = money(Math.abs(gap) * 12);
+    $('equity5L').textContent = money(Math.max(0, equity5));
+
+    $('v1').textContent = money(rent);
+    $('v2').textContent = money(mortgage);
+    $('v3').textContent = money(taxIns);
+    $('v4').textContent = money(maint);
+    $('v5').textContent = money(opportunity);
+    $('v6').textContent = '-' + money(taxBenefit);
+
+    $('rentTotalL').textContent = money(rentTotal);
+    $('r1').textContent = money(rent);
+    $('r2').textContent = money(opportunity);
+    $('ownTotalL').textContent = money(ownTotal);
+    $('o1').textContent = money(mortgage);
+    $('o2').textContent = money(taxIns);
+    $('o3').textContent = money(maint);
+    $('o4').textContent = '-' + money(taxBenefit);
+
+    $('value10L').textContent = money(value10);
+    $('gain10L').textContent = money(value10 - homeValue);
+    $('rent10L').textContent = money(rent * 12 * 10 * 1.15);
+  }
+
+  ['rent','home','down','tax','maint','appr','ins','benefit'].forEach(function(id){
+    $(id).addEventListener('input', calc);
+    $(id).addEventListener('change', calc);
+  });
+  calc();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<!-- @template name="YouTube Thumbnail" description="1280×720 YouTube thumbnails in 4 layouts — Hook, Home Tour, Market Data, Big Question. Drop in agent headshot (or logo) + background photo." -->
+<!-- ASK FIRST — do not invent or placeholder these. Before populating this template, ask the user for: the headline/hook text, which layout to use, a background photo, and the agent headshot (or confirmation to use the logo instead). If the user has not supplied an image, ask for it rather than shipping a gray placeholder; agent headshots and contact details can be pulled from assets/agents/roster.json by name. -->
+<helmet>
+<script src="./ds-base.js"></script>
+<script src="../../assets/image-slot.js"></script>
+<style>
+  .yt-thumb{--accent:var(--tcs-salmon)}
+  .yt-thumb[data-accent="navy"]{--accent:var(--tcs-navy-600)}
+  .yt-thumb[data-accent="sky"]{--accent:var(--tcs-sky-500)}
+  .yt-thumb[data-accent="green"]{--accent:var(--status-success)}
+</style>
+</helmet>
+<div style="position:fixed;inset:0;background:#0f1626;display:flex;align-items:center;justify-content:center;overflow:hidden;font-family:var(--font-sans)">
+  <div class="yt-thumb yt-stage" data-accent="{{ accent }}" style="position:relative;width:1280px;height:720px;overflow:hidden;background:var(--tcs-navy)">
+
+    <!-- 1 · HOOK / EDUCATIONAL -->
+    <sc-if value="{{ isHook }}" hint-placeholder-val="{{ true }}">
+      <div style="position:absolute;inset:0;display:grid;grid-template-columns:1fr 470px">
+        <div style="position:relative;padding:64px 40px 64px 64px;display:flex;flex-direction:column;justify-content:center;gap:22px;background:var(--tcs-navy);z-index:2">
+          <div style="display:inline-flex;align-self:flex-start;background:var(--accent);color:#fff;font-size:26px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:12px 24px;border-radius:999px">{{ eyebrow }}</div>
+          <div style="font-family:var(--font-display);font-weight:900;font-size:104px;line-height:.94;letter-spacing:-.035em;color:#fff;text-transform:uppercase;text-wrap:balance">{{ hook }}</div>
+          <div style="font-size:34px;font-weight:600;color:var(--tcs-sky)">{{ subhook }}</div>
+          <img src="../../assets/logo-mark-white.png" alt="TCS Group" style="height:44px;width:auto;align-self:flex-start;margin-top:10px" />
+        </div>
+        <div style="position:relative;background:var(--accent)">
+          <image-slot id="yt-hook-agent" shape="rect" placeholder="Agent headshot (or TCS logo)"></image-slot>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- 2 · HOME TOUR -->
+    <sc-if value="{{ isTour }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;inset:0">
+        <image-slot id="yt-tour-bg" shape="rect" placeholder="Property / area photo"></image-slot>
+        <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(22,33,58,.92) 0%,rgba(22,33,58,.72) 42%,rgba(22,33,58,0) 78%)"></div>
+        <div style="position:absolute;top:0;left:0;bottom:0;width:760px;padding:60px;display:flex;flex-direction:column;justify-content:center;gap:20px;z-index:2">
+          <div style="display:inline-flex;align-self:flex-start;background:var(--accent);color:#fff;font-size:25px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:11px 22px;border-radius:999px">{{ eyebrow }}</div>
+          <div style="font-family:var(--font-display);font-weight:900;font-size:92px;line-height:.94;letter-spacing:-.035em;color:#fff;text-transform:uppercase;text-wrap:balance">{{ hook }}</div>
+          <div style="font-size:36px;font-weight:700;color:#fff">{{ subhook }}</div>
+          <div style="display:flex;gap:14px;margin-top:6px">
+            <span style="background:#fff;color:var(--tcs-navy);font-size:26px;font-weight:800;padding:10px 20px;border-radius:10px">{{ specs }}</span>
+          </div>
+        </div>
+        <div style="position:absolute;right:52px;bottom:52px;width:270px;height:270px;border-radius:50%;overflow:hidden;border:8px solid var(--accent);box-shadow:0 18px 48px rgba(0,0,0,.4);z-index:3">
+          <image-slot id="yt-tour-agent" shape="circle" placeholder="Agent headshot"></image-slot>
+        </div>
+        <img src="../../assets/logo-mark-white.png" alt="TCS Group" style="position:absolute;right:56px;top:48px;height:44px;width:auto;z-index:3" />
+      </div>
+    </sc-if>
+
+    <!-- 3 · MARKET DATA -->
+    <sc-if value="{{ isData }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;inset:0;display:grid;grid-template-columns:1fr 430px;background:var(--tcs-navy)">
+        <div style="padding:60px;display:flex;flex-direction:column;justify-content:center;gap:14px">
+          <div style="font-size:26px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)">{{ eyebrow }}</div>
+          <div style="font-family:var(--font-display);font-weight:900;font-size:170px;line-height:.86;letter-spacing:-.04em;color:#fff">{{ statValue }}</div>
+          <div style="font-family:var(--font-display);font-weight:800;font-size:56px;line-height:1;letter-spacing:-.02em;color:var(--tcs-sky);text-transform:uppercase;text-wrap:balance">{{ hook }}</div>
+          <div style="font-size:30px;font-weight:600;color:rgba(255,255,255,.8)">{{ subhook }}</div>
+          <img src="../../assets/logo-mark-white.png" alt="TCS Group" style="height:42px;width:auto;align-self:flex-start;margin-top:12px" />
+        </div>
+        <div style="position:relative;background:var(--accent)">
+          <image-slot id="yt-data-agent" shape="rect" placeholder="Agent headshot (or TCS logo)"></image-slot>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- 4 · BIG QUESTION -->
+    <sc-if value="{{ isQuestion }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;inset:0">
+        <image-slot id="yt-q-bg" shape="rect" placeholder="Area / home background photo"></image-slot>
+        <div style="position:absolute;inset:0;background:rgba(22,33,58,.66)"></div>
+        <div style="position:absolute;top:0;left:0;right:0;bottom:215px;padding:40px 80px 0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:26px;z-index:2">
+          <div style="font-family:var(--font-display);font-weight:900;font-size:124px;line-height:.9;letter-spacing:-.04em;color:#fff;text-transform:uppercase;text-wrap:balance;text-shadow:0 6px 28px rgba(0,0,0,.55)">{{ hook }}</div>
+          <div style="display:inline-flex;background:var(--accent);color:#fff;font-size:32px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:14px 32px;border-radius:999px">{{ subhook }}</div>
+        </div>
+        <div style="position:absolute;left:48px;bottom:44px;width:210px;height:210px;border-radius:50%;overflow:hidden;border:7px solid #fff;box-shadow:0 18px 48px rgba(0,0,0,.4);z-index:3">
+          <image-slot id="yt-q-agent" shape="circle" placeholder="Agent headshot"></image-slot>
+        </div>
+        <img src="../../assets/logo-mark-white.png" alt="TCS Group" style="position:absolute;right:52px;bottom:52px;height:48px;width:auto;z-index:3" />
+      </div>
+    </sc-if>
+  </div>
+
+  <!-- Layout switcher (off-canvas, never exported) -->
+  <div style="position:fixed;bottom:18px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:8px;background:rgba(17,26,46,.92);border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:8px 10px;z-index:50">
+    <button onClick="{{ goHook }}" style="background:transparent;border:none;color:#fff;font-family:var(--font-sans);font-size:13px;font-weight:800;cursor:pointer;height:38px;padding:0 18px;border-radius:999px" style-hover="background:rgba(255,255,255,.14)">Hook</button>
+    <button onClick="{{ goTour }}" style="background:transparent;border:none;color:#fff;font-family:var(--font-sans);font-size:13px;font-weight:800;cursor:pointer;height:38px;padding:0 18px;border-radius:999px" style-hover="background:rgba(255,255,255,.14)">Home Tour</button>
+    <button onClick="{{ goData }}" style="background:transparent;border:none;color:#fff;font-family:var(--font-sans);font-size:13px;font-weight:800;cursor:pointer;height:38px;padding:0 18px;border-radius:999px" style-hover="background:rgba(255,255,255,.14)">Market Data</button>
+    <button onClick="{{ goQuestion }}" style="background:transparent;border:none;color:#fff;font-family:var(--font-sans);font-size:13px;font-weight:800;cursor:pointer;height:38px;padding:0 18px;border-radius:999px" style-hover="background:rgba(255,255,255,.14)">Big Question</button>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: 1280, &quot;height&quot;: 720 },
+  &quot;layout&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;hook&quot;, &quot;tour&quot;, &quot;data&quot;, &quot;question&quot;], &quot;default&quot;: &quot;hook&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Layout&quot; },
+  &quot;accent&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;salmon&quot;, &quot;navy&quot;, &quot;sky&quot;, &quot;green&quot;], &quot;default&quot;: &quot;&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Layout&quot; },
+  &quot;eyebrow&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Copy — blank uses the layout preset&quot; },
+  &quot;hook&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Copy — blank uses the layout preset&quot; },
+  &quot;subhook&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Copy — blank uses the layout preset&quot; },
+  &quot;specs&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Home Tour&quot; },
+  &quot;statValue&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Market Data&quot; }
+}">
+const LAYOUTS = ['hook', 'tour', 'data', 'question'];
+const LABELS = { hook: 'Hook', tour: 'Home Tour', data: 'Market Data', question: 'Big Question' };
+const PRESETS = {
+  hook: { eyebrow: 'First-Time Buyers', hook: 'Stop Renting In 2026', subhook: 'The Burn-To-Earn™ formula', accent: 'salmon' },
+  tour: { eyebrow: 'Home Tour', hook: 'Inside A $1M Fishtown Rowhome', subhook: '528 Berks Street', specs: '4 BD · 3 BA · 3,000 SF', accent: 'salmon' },
+  data: { eyebrow: 'Philly Market Update', hook: 'Prices Just Shifted', subhook: 'What buyers need to know now', statValue: '+2.1%', accent: 'sky' },
+  question: { hook: 'Should You Buy Or Wait?', subhook: 'Watch before you decide', accent: 'salmon' },
+};
+
+class Component extends DCLogic {
+  state = { layout: null };
+
+  componentDidMount() {
+    this._scale = this._scale.bind(this);
+    this._scale();
+    window.addEventListener('resize', this._scale);
+  }
+  componentWillUnmount() { window.removeEventListener('resize', this._scale); }
+  componentDidUpdate() { this._scale(); }
+  _scale() {
+    const el = document.querySelector('.yt-stage');
+    if (!el) return;
+    const s = Math.min(window.innerWidth / 1280, (window.innerHeight - 150) / 720);
+    el.style.transform = 'scale(' + s + ') translateY(-40px)';
+    el.style.transformOrigin = 'center';
+  }
+
+  renderVals() {
+    const p = this.props || {};
+    const layout = this.state.layout || p.layout || 'hook';
+    const d = PRESETS[layout] || PRESETS.hook;
+    return {
+      isHook: layout === 'hook',
+      isTour: layout === 'tour',
+      isData: layout === 'data',
+      isQuestion: layout === 'question',
+      accent: p.accent || d.accent,
+      eyebrow: p.eyebrow || d.eyebrow || '',
+      hook: p.hook || d.hook,
+      subhook: p.subhook || d.subhook,
+      specs: p.specs || d.specs || '',
+      statValue: p.statValue || d.statValue || '',
+      goHook: () => this.setState({ layout: 'hook' }),
+      goTour: () => this.setState({ layout: 'tour' }),
+      goData: () => this.setState({ layout: 'data' }),
+      goQuestion: () => this.setState({ layout: 'question' }),
+    };
+  }
+}
+</script>
+</body>
+</html>

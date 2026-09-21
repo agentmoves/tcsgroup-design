@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<!-- @template name="Burn-to-Earn™ Calculator" description="Interactive rent-vs-own calculator using the 6-variable Burn-to-Earn™ formula — live math for first-time buyer consultations." -->
+<!-- ASK FIRST — do not invent or placeholder these. Before populating this template, ask the user for: the default rent, price, and rate figures to preload for this client or market. If the user has not supplied an image, ask for it rather than shipping a gray placeholder; agent headshots and contact details can be pulled from assets/agents/roster.json by name. -->
+<helmet>
+<script src="./ds-base.js"></script>
+<style>
+  body{background:var(--tcs-cloud)}
+  .bte-in{width:100%;box-sizing:border-box;border:1.5px solid var(--tcs-line);border-radius:10px;padding:11px 14px;font-family:var(--font-sans);font-size:17px;font-weight:700;color:var(--tcs-navy);background:#fff;outline:none}
+  .bte-in:focus{border-color:var(--tcs-navy-600);box-shadow:0 0 0 3px rgba(51,80,127,.2)}
+  .bte-rng{width:100%;accent-color:var(--tcs-salmon);margin:0}
+</style>
+</helmet>
+<div style="min-height:100vh;font-family:var(--font-sans);color:var(--tcs-ink);padding:0 0 56px">
+
+  <!-- Header -->
+  <div style="background:var(--tcs-navy);color:#fff;padding:32px 48px;display:flex;align-items:center;justify-content:space-between;gap:24px">
+    <div>
+      <div style="font-size:13px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--tcs-salmon)">Burn-to-Earn™ Formula</div>
+      <div style="font-family:var(--font-display);font-weight:800;font-size:34px;line-height:1.1;letter-spacing:-.02em;margin-top:4px">What renting is really costing you</div>
+    </div>
+    <img src="../../assets/logo-mark-white.png" alt="TCS Group" style="height:46px;width:auto;flex:0 0 auto" />
+  </div>
+
+  <div style="max-width:1220px;margin:0 auto;padding:32px 32px 0;display:grid;grid-template-columns:400px minmax(0,1fr);gap:28px;align-items:start">
+
+    <!-- INPUTS -->
+    <div style="background:#fff;border:1px solid var(--tcs-line);border-radius:18px;box-shadow:var(--shadow-sm);padding:26px;display:flex;flex-direction:column;gap:20px">
+      <div style="font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--tcs-salmon)">Your Numbers</div>
+
+      <div>
+        <label style="display:block;font-size:14px;font-weight:700;color:var(--tcs-navy);margin-bottom:6px">Current monthly rent</label>
+        <input class="bte-in" type="number" value="{{ rent }}" onChange="{{ setRent }}" onInput="{{ setRent }}" />
+      </div>
+
+      <div>
+        <label style="display:block;font-size:14px;font-weight:700;color:var(--tcs-navy);margin-bottom:6px">Home price</label>
+        <input class="bte-in" type="number" step="5000" value="{{ homeValue }}" onChange="{{ setHome }}" onInput="{{ setHome }}" />
+      </div>
+
+      <div>
+        <label style="display:block;font-size:14px;font-weight:700;color:var(--tcs-navy);margin-bottom:6px">Down payment — {{ downPct }}% ({{ downAmtF }})</label>
+        <input class="bte-rng" type="range" min="0" max="25" step="0.1" value="{{ downPct }}" onInput="{{ setDown }}" />
+        <div style="font-size:13px;color:var(--tcs-slate);margin-top:4px">Loan amount: <strong style="color:var(--tcs-navy)">{{ loanF }}</strong></div>
+      </div>
+
+      <div style="border-top:1px solid var(--tcs-line);padding-top:18px;display:flex;flex-direction:column;gap:16px">
+        <div style="font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--tcs-slate)">Assumptions</div>
+        <div>
+          <label style="display:block;font-size:14px;font-weight:700;color:var(--tcs-navy);margin-bottom:6px">Property tax rate — {{ taxPct }}%</label>
+          <input class="bte-rng" type="range" min="0.5" max="3" step="0.1" value="{{ taxPct }}" onInput="{{ setTax }}" />
+        </div>
+        <div>
+          <label style="display:block;font-size:14px;font-weight:700;color:var(--tcs-navy);margin-bottom:6px">Maintenance — {{ maintPct }}% of value / yr</label>
+          <input class="bte-rng" type="range" min="0.5" max="2.5" step="0.1" value="{{ maintPct }}" onInput="{{ setMaint }}" />
+        </div>
+        <div>
+          <label style="display:block;font-size:14px;font-weight:700;color:var(--tcs-navy);margin-bottom:6px">Annual appreciation — {{ apprPct }}%</label>
+          <input class="bte-rng" type="range" min="0" max="8" step="0.5" value="{{ apprPct }}" onInput="{{ setAppr }}" />
+        </div>
+        <div>
+          <label style="display:block;font-size:14px;font-weight:700;color:var(--tcs-navy);margin-bottom:6px">Annual insurance</label>
+          <input class="bte-in" type="number" step="100" value="{{ insurance }}" onChange="{{ setIns }}" onInput="{{ setIns }}" />
+        </div>
+        <div>
+          <label style="display:block;font-size:14px;font-weight:700;color:var(--tcs-navy);margin-bottom:6px">Monthly tax benefit</label>
+          <input class="bte-in" type="number" step="25" value="{{ taxBenefit }}" onChange="{{ setBenefit }}" onInput="{{ setBenefit }}" />
+        </div>
+      </div>
+      <div style="font-size:12px;line-height:1.5;color:var(--tcs-slate)">Mortgage estimated at $600 per $100,000 borrowed (principal &amp; interest), per the Burn-to-Earn™ quick rule.</div>
+    </div>
+
+    <!-- RESULTS -->
+    <div style="display:flex;flex-direction:column;gap:24px">
+
+      <!-- Verdict -->
+      <div style="background:var(--tcs-salmon);color:#fff;border-radius:18px;padding:30px 34px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap">
+        <div>
+          <div style="font-size:13px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.9)">{{ verdictLabel }}</div>
+          <div style="font-family:var(--font-display);font-weight:900;font-size:64px;line-height:1;letter-spacing:-.03em;margin-top:6px">{{ gapF }}</div>
+          <div style="font-size:17px;font-weight:600;color:rgba(255,255,255,.92);margin-top:6px">{{ gapYearF }} over the first year</div>
+        </div>
+        <div style="text-align:right;flex:0 0 auto">
+          <div style="font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.85)">Equity in 5 years</div>
+          <div style="font-family:var(--font-display);font-weight:900;font-size:40px;line-height:1.05;margin-top:4px">{{ equity5F }}</div>
+        </div>
+      </div>
+
+      <!-- Six variables -->
+      <div>
+        <div style="font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--tcs-salmon);margin-bottom:14px">The 6 variables</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px">
+          <div style="background:#fff;border:1px solid var(--tcs-line);border-radius:14px;padding:18px 20px">
+            <div style="display:flex;align-items:center;gap:10px"><span style="width:26px;height:26px;border-radius:50%;background:var(--tcs-navy);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex:0 0 auto">1</span><span style="font-size:14px;font-weight:800;color:var(--tcs-navy)">Monthly Rent</span></div>
+            <div style="font-family:var(--font-display);font-weight:900;font-size:30px;color:var(--tcs-ink);margin-top:10px">{{ rentF }}</div>
+          </div>
+          <div style="background:#fff;border:1px solid var(--tcs-line);border-radius:14px;padding:18px 20px">
+            <div style="display:flex;align-items:center;gap:10px"><span style="width:26px;height:26px;border-radius:50%;background:var(--tcs-navy);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex:0 0 auto">2</span><span style="font-size:14px;font-weight:800;color:var(--tcs-navy)">Mortgage Payment</span></div>
+            <div style="font-family:var(--font-display);font-weight:900;font-size:30px;color:var(--tcs-ink);margin-top:10px">{{ mortgageF }}</div>
+          </div>
+          <div style="background:#fff;border:1px solid var(--tcs-line);border-radius:14px;padding:18px 20px">
+            <div style="display:flex;align-items:center;gap:10px"><span style="width:26px;height:26px;border-radius:50%;background:var(--tcs-navy);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex:0 0 auto">3</span><span style="font-size:14px;font-weight:800;color:var(--tcs-navy)">Tax &amp; Insurance</span></div>
+            <div style="font-family:var(--font-display);font-weight:900;font-size:30px;color:var(--tcs-ink);margin-top:10px">{{ taxInsF }}</div>
+          </div>
+          <div style="background:#fff;border:1px solid var(--tcs-line);border-radius:14px;padding:18px 20px">
+            <div style="display:flex;align-items:center;gap:10px"><span style="width:26px;height:26px;border-radius:50%;background:var(--tcs-navy);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex:0 0 auto">4</span><span style="font-size:14px;font-weight:800;color:var(--tcs-navy)">Ownership Costs</span></div>
+            <div style="font-family:var(--font-display);font-weight:900;font-size:30px;color:var(--tcs-ink);margin-top:10px">{{ maintF }}</div>
+          </div>
+          <div style="background:var(--tcs-sky);border:1px solid var(--tcs-sky);border-radius:14px;padding:18px 20px">
+            <div style="display:flex;align-items:center;gap:10px"><span style="width:26px;height:26px;border-radius:50%;background:var(--tcs-navy);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex:0 0 auto">5</span><span style="font-size:14px;font-weight:800;color:var(--tcs-navy)">Opportunity Cost</span></div>
+            <div style="font-family:var(--font-display);font-weight:900;font-size:30px;color:var(--tcs-navy);margin-top:10px">{{ opportunityF }}</div>
+            <div style="font-size:12px;color:var(--tcs-navy-600);margin-top:2px">Appreciation you miss by renting</div>
+          </div>
+          <div style="background:#fff;border:1px solid var(--tcs-line);border-radius:14px;padding:18px 20px">
+            <div style="display:flex;align-items:center;gap:10px"><span style="width:26px;height:26px;border-radius:50%;background:var(--tcs-navy);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex:0 0 auto">6</span><span style="font-size:14px;font-weight:800;color:var(--tcs-navy)">Tax Benefit</span></div>
+            <div style="font-family:var(--font-display);font-weight:900;font-size:30px;color:var(--status-success);margin-top:10px">{{ benefitF }}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Compare -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px">
+        <div style="background:#fff;border:2px solid var(--tcs-salmon);border-radius:18px;padding:24px 26px">
+          <div style="font-size:13px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--tcs-salmon)">Total Cost of Renting</div>
+          <div style="font-family:var(--font-display);font-weight:900;font-size:46px;color:var(--tcs-navy);line-height:1.05;margin:8px 0 14px">{{ rentTotalF }}</div>
+          <div style="display:flex;justify-content:space-between;font-size:15px;padding:7px 0;border-top:1px solid var(--tcs-line)"><span style="color:var(--tcs-slate-600)">Monthly rent</span><strong style="color:var(--tcs-navy)">{{ rentF }}</strong></div>
+          <div style="display:flex;justify-content:space-between;font-size:15px;padding:7px 0;border-top:1px solid var(--tcs-line)"><span style="color:var(--tcs-slate-600)">Opportunity cost</span><strong style="color:var(--tcs-navy)">{{ opportunityF }}</strong></div>
+        </div>
+        <div style="background:var(--tcs-navy);border-radius:18px;padding:24px 26px;color:#fff">
+          <div style="font-size:13px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--tcs-sky)">Total Cost of Owning</div>
+          <div style="font-family:var(--font-display);font-weight:900;font-size:46px;line-height:1.05;margin:8px 0 14px">{{ ownTotalF }}</div>
+          <div style="display:flex;justify-content:space-between;font-size:15px;padding:7px 0;border-top:1px solid rgba(255,255,255,.18)"><span style="color:rgba(255,255,255,.75)">Mortgage</span><strong style="color:#fff">{{ mortgageF }}</strong></div>
+          <div style="display:flex;justify-content:space-between;font-size:15px;padding:7px 0;border-top:1px solid rgba(255,255,255,.18)"><span style="color:rgba(255,255,255,.75)">Tax &amp; insurance</span><strong style="color:#fff">{{ taxInsF }}</strong></div>
+          <div style="display:flex;justify-content:space-between;font-size:15px;padding:7px 0;border-top:1px solid rgba(255,255,255,.18)"><span style="color:rgba(255,255,255,.75)">Maintenance</span><strong style="color:#fff">{{ maintF }}</strong></div>
+          <div style="display:flex;justify-content:space-between;font-size:15px;padding:7px 0;border-top:1px solid rgba(255,255,255,.18)"><span style="color:rgba(255,255,255,.75)">Tax benefit</span><strong style="color:var(--tcs-sky)">{{ benefitF }}</strong></div>
+        </div>
+      </div>
+
+      <!-- Wealth outlook -->
+      <div style="background:#fff;border:1px solid var(--tcs-line);border-radius:18px;padding:24px 26px">
+        <div style="font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--tcs-salmon);margin-bottom:16px">If you buy instead of rent</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:18px">
+          <div>
+            <div style="font-size:13px;font-weight:700;color:var(--tcs-slate);text-transform:uppercase;letter-spacing:.06em">Home value in 10 yrs</div>
+            <div style="font-family:var(--font-display);font-weight:900;font-size:34px;color:var(--tcs-navy);margin-top:4px">{{ value10F }}</div>
+          </div>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:var(--tcs-slate);text-transform:uppercase;letter-spacing:.06em">Appreciation gained</div>
+            <div style="font-family:var(--font-display);font-weight:900;font-size:34px;color:var(--tcs-salmon);margin-top:4px">{{ gain10F }}</div>
+          </div>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:var(--tcs-slate);text-transform:uppercase;letter-spacing:.06em">Rent paid, 10 yrs</div>
+            <div style="font-family:var(--font-display);font-weight:900;font-size:34px;color:var(--tcs-slate-600);margin-top:4px">{{ rent10F }}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div style="background:var(--tcs-sky);border-radius:18px;padding:22px 26px;display:flex;align-items:center;justify-content:space-between;gap:20px">
+        <div style="font-size:17px;font-weight:700;color:var(--tcs-navy)">Let's find out which programs you qualify for.</div>
+        <div style="font-family:var(--font-display);font-weight:800;font-size:22px;color:var(--tcs-navy);flex:0 0 auto">{{ agentPhone }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;agentPhone&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;(215) 692-6636&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Agent&quot; }
+}">
+function money(n) {
+  const v = Math.round(n);
+  return (v < 0 ? '-$' : '$') + Math.abs(v).toLocaleString();
+}
+
+class Component extends DCLogic {
+  state = {
+    rent: 2200,
+    homeValue: 350000,
+    downPct: 14.3,
+    taxPct: 1.5,
+    maintPct: 1,
+    apprPct: 4,
+    insurance: 1700,
+    taxBenefit: 300,
+  };
+
+  num(e, fallback) {
+    const v = parseFloat(e.target.value);
+    return isNaN(v) ? fallback : v;
+  }
+
+  renderVals() {
+    const s = this.state;
+    const p = this.props || {};
+    const loan = Math.max(0, s.homeValue * (1 - s.downPct / 100));
+    const mortgage = (loan / 100000) * 600;
+    const taxIns = (s.homeValue * (s.taxPct / 100) + s.insurance) / 12;
+    const maint = (s.homeValue * (s.maintPct / 100)) / 12;
+    const opportunity = (s.homeValue * (s.apprPct / 100)) / 12;
+    const rentTotal = s.rent + opportunity;
+    const ownTotal = mortgage + taxIns + maint - s.taxBenefit;
+    const gap = rentTotal - ownTotal;
+
+    const value10 = s.homeValue * Math.pow(1 + s.apprPct / 100, 10);
+    const value5 = s.homeValue * Math.pow(1 + s.apprPct / 100, 5);
+    // equity ≈ appreciation over 5 yrs + down payment + rough principal paid (~12% of P&I)
+    const down = s.homeValue * (s.downPct / 100);
+    const principal5 = mortgage * 60 * 0.16;
+    const equity5 = (value5 - s.homeValue) + down + principal5;
+
+    return {
+      rent: s.rent, homeValue: s.homeValue,
+      downPct: s.downPct, taxPct: s.taxPct, maintPct: s.maintPct,
+      apprPct: s.apprPct, insurance: s.insurance, taxBenefit: s.taxBenefit,
+
+      downAmtF: money(down),
+      loanF: money(loan),
+      rentF: money(s.rent),
+      mortgageF: money(mortgage),
+      taxInsF: money(taxIns),
+      maintF: money(maint),
+      opportunityF: money(opportunity),
+      benefitF: '-' + money(s.taxBenefit),
+      rentTotalF: money(rentTotal),
+      ownTotalF: money(ownTotal),
+      gapF: money(Math.abs(gap)),
+      gapYearF: money(Math.abs(gap) * 12),
+      verdictLabel: gap >= 0 ? 'Losing per month to rent' : 'Renting costs less per month',
+      equity5F: money(Math.max(0, equity5)),
+      value10F: money(value10),
+      gain10F: money(value10 - s.homeValue),
+      rent10F: money(s.rent * 12 * 10 * 1.15),
+      agentPhone: p.agentPhone || '(215) 692-6636',
+
+      setRent: (e) => this.setState({ rent: this.num(e, 0) }),
+      setHome: (e) => this.setState({ homeValue: this.num(e, 0) }),
+      setDown: (e) => this.setState({ downPct: this.num(e, 0) }),
+      setTax: (e) => this.setState({ taxPct: this.num(e, 0) }),
+      setMaint: (e) => this.setState({ maintPct: this.num(e, 0) }),
+      setAppr: (e) => this.setState({ apprPct: this.num(e, 0) }),
+      setIns: (e) => this.setState({ insurance: this.num(e, 0) }),
+      setBenefit: (e) => this.setState({ taxBenefit: this.num(e, 0) }),
+    };
+  }
+}
+</script>
+</body>
+</html>

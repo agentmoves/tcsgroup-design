@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<!-- @template name="Market Update — Social Post" description="Square 1080×1080 market snapshot for Instagram/Facebook feed — county stats table. Edit the counties data." -->
+<!-- ASK FIRST — do not invent or placeholder these. Before populating this template, ask the user for: the reporting month/period and the real county figures (median price, days on market, inventory). If the user has not supplied an image, ask for it rather than shipping a gray placeholder; agent headshots and contact details can be pulled from assets/agents/roster.json by name. -->
+<helmet>
+<script src="./ds-base.js"></script>
+<script src="../../assets/image-slot.js"></script>
+</helmet>
+<div style="position:relative;width:1080px;height:1080px;overflow:hidden;font-family:var(--font-sans);background:#fff;display:flex;flex-direction:column">
+
+  <!-- Header -->
+  <div style="position:relative;background:var(--tcs-salmon);padding:36px 48px 26px;overflow:hidden">
+    <img src="../../assets/logo-kw-white.png" alt="TCS Group" style="height:40px;width:auto;display:block" />
+    <div style="font-size:15px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.9);margin-top:18px">{{ kicker }}</div>
+    <h1 style="font-family:var(--font-display);font-weight:800;font-size:44px;line-height:1.02;color:#fff;text-transform:uppercase;letter-spacing:-.01em;margin:6px 0 4px;max-width:640px">{{ title }}</h1>
+    <div style="font-family:var(--font-display);font-size:22px;font-weight:500;color:rgba(255,255,255,.92)">{{ subtitle }}</div>
+    <div style="position:absolute;top:28px;right:44px;width:210px;height:200px;overflow:hidden">
+      <image-slot id="mus-agent-photo" shape="rect" src="{{ agentSrc }}" placeholder="Agent photo"></image-slot>
+    </div>
+  </div>
+
+  <!-- Column headers -->
+  <div style="background:var(--tcs-black);color:#fff;display:grid;grid-template-columns:1.3fr 1.1fr 1fr 1.1fr 1fr;padding:22px 48px;gap:8px;font-size:19px;font-weight:800;text-transform:uppercase;text-align:center;line-height:1.1">
+    <div style="text-align:left">County</div><div>Median Est Value</div><div>MoM Growth</div><div>Sale to List %</div><div>Avg Days on Market</div>
+  </div>
+
+  <!-- County rows -->
+  <div style="flex:1;background:var(--tcs-cloud);padding:10px 48px;display:flex;flex-direction:column;justify-content:center">
+    <sc-for list="{{ counties }}" as="c" hint-placeholder-count="3">
+      <div style="display:grid;grid-template-columns:1.3fr 1.1fr 1fr 1.1fr 1fr;align-items:center;text-align:center;padding:26px 0;border-bottom:1px dashed var(--tcs-slate-300);color:var(--tcs-navy)">
+        <div style="text-align:left;font-weight:800;font-size:28px">{{ c.name }}</div>
+        <div style="font-size:34px">{{ c.median }}</div>
+        <div style="font-size:28px">{{ c.mom }}</div>
+        <div style="font-size:28px">{{ c.saleToList }}</div>
+        <div style="font-size:34px">{{ c.dom }}</div>
+      </div>
+    </sc-for>
+  </div>
+
+  <!-- Footer -->
+  <div style="background:var(--tcs-salmon);text-align:center;padding:24px;color:#fff;font-family:var(--font-display);font-weight:800;font-size:32px;letter-spacing:.06em">{{ footer }}</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: 1080, &quot;height&quot;: 1080 },
+  &quot;kicker&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;Monthly Market Update&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;title&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;Philadelphia, Montgomery &amp; Delaware&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;subtitle&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;Single Family Homes, Condos, Townhomes&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;footer&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;TCS GROUP  |  267-261-0700&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;agentPhoto&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;&quot;, &quot;options&quot;: [&quot;&quot;,&quot;ahjah-crosland&quot;,&quot;alex-delcourt&quot;,&quot;andrew-goldberg&quot;,&quot;boots-levinson&quot;,&quot;carmine-simmons&quot;,&quot;cassandra-green&quot;,&quot;christi-truesdell&quot;,&quot;claudia-brown&quot;,&quot;dan-deckelbaum&quot;,&quot;earl-gray&quot;,&quot;elaine-reby&quot;,&quot;eva-mitrushi&quot;,&quot;gaurav-gambhir&quot;,&quot;gavin-ludovici&quot;,&quot;gersham-fulcott&quot;,&quot;gregory-buck&quot;,&quot;griffin-cohen&quot;,&quot;jafar-oliai&quot;,&quot;jason-gizzi&quot;,&quot;john-bolaris&quot;,&quot;jon-hummel&quot;,&quot;joseph-cantz&quot;,&quot;juanita-jackson&quot;,&quot;karina-caroni&quot;,&quot;landry-nguema&quot;,&quot;liz-guerrero&quot;,&quot;madison-simone&quot;,&quot;matthew-milano&quot;,&quot;mia-purul&quot;,&quot;michael-edward-cohen&quot;,&quot;michael-gregor&quot;,&quot;michele-palumbo&quot;,&quot;morgan-harrington&quot;,&quot;pam-hooks&quot;,&quot;parker-ross&quot;,&quot;richard-yusko&quot;,&quot;rijon-simon&quot;,&quot;ryan-green&quot;,&quot;solon-alpohoritis&quot;,&quot;stephanie-churchill&quot;,&quot;suman-chakraborty&quot;,&quot;thomas-groll&quot;,&quot;tyler-doppelheuer&quot;,&quot;tyler-hopp&quot;,&quot;vladymir-valentin&quot;], &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Agent&quot; }
+}">
+const COUNTIES = [
+  { name: 'Philadelphia', median: '$375,880', mom: '+2.1%', saleToList: '99.3%', dom: '10' },
+  { name: 'Delaware', median: '$445,640', mom: '+0.9%', saleToList: '103.2%', dom: '4' },
+  { name: 'Montgomery', median: '$598,570', mom: '+1.2%', saleToList: '103%', dom: '4' },
+];
+
+class Component extends DCLogic {
+  // Resolve agent photo + contact from the design-system roster.
+  // Photo URL is derived from the loaded bundle's own location, so it resolves in
+  // consuming projects at any folder depth (a hardcoded ../../ path does not).
+  dsBase() {
+    try {
+      var s = document.querySelector('script[src*="_ds_bundle"]');
+      if (s && s.src) return s.src.replace(/\/_ds_bundle\.js.*$/, '');
+    } catch (e) {}
+    return '../..';
+  }
+  agentRec(slug) {
+    if (!slug) return null;
+    var ns = null;
+    for (var k in window) { if (k.indexOf('DesignSystem_') === 0) { ns = window[k]; break; } }
+    var rec = (ns && ns.Agent && ns.Agent.get) ? ns.Agent.get(slug) : null;
+    var key = String(slug).trim().toLowerCase().replace(/\s+/g, '-');
+    return Object.assign({ photo: this.dsBase() + '/assets/agents/' + (rec ? rec.slug : key) + '.png' }, rec || {});
+  }
+  renderVals() {
+    const p = this.props || {};
+    const a = this.agentRec(p.agentPhoto);
+    return {
+      kicker: p.kicker || 'Monthly Market Update',
+      title: p.title || 'Philadelphia, Montgomery & Delaware',
+      subtitle: p.subtitle || 'Single Family Homes, Condos, Townhomes',
+      footer: p.footer || 'TCS GROUP  |  267-261-0700',
+      counties: COUNTIES,
+      agentSrc: (a && a.photo) || '',
+    };
+  }
+}
+</script>
+</body>
+</html>

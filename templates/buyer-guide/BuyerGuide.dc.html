@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<!-- @template name="Buyer Guide (Burn-to-Earn™)" description="Multi-page printable lead-magnet guide — cover, author story, the formula, old vs new, 6 myths, assistance programs, the math, leverage, CTA." -->
+<!-- ASK FIRST — do not invent or placeholder these. Before populating this template, ask the user for: the authoring agent (name, headshot, title, phone, email), any real client story or numbers to use, and the local market/programs it should reference. If the user has not supplied an image, ask for it rather than shipping a gray placeholder; agent headshots and contact details can be pulled from assets/agents/roster.json by name. -->
+<helmet>
+<script src="./ds-base.js"></script>
+<script src="./doc-page.js"></script>
+<script src="./image-slot.js"></script>
+<style>
+  doc-page:not(:defined){visibility:hidden}
+  .page{font-family:var(--font-sans);color:var(--tcs-ink);background:#fff;display:flex;flex-direction:column}
+  .pad{padding:0.7in 0.75in}
+  .kicker{font-size:9pt;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--tcs-salmon)}
+  .h2{font-family:var(--font-display);font-weight:800;font-size:26pt;line-height:1.06;letter-spacing:-.02em;color:var(--tcs-navy);margin:6pt 0 0}
+  .body{font-size:11pt;line-height:1.6;color:var(--tcs-slate-600)}
+  .rule{height:3pt;width:0.7in;background:var(--tcs-salmon);border-radius:2pt;margin:10pt 0 14pt}
+  .foot{margin-top:auto;padding:0.3in 0.75in;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--tcs-line);font-size:8.5pt;color:var(--tcs-slate)}
+  .num{width:24pt;height:24pt;border-radius:50%;background:var(--tcs-salmon);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:900;font-size:12pt;flex:0 0 auto}
+  .myth{border-left:3pt solid var(--tcs-salmon);padding:0 0 0 12pt;margin-bottom:11pt}
+  .mt{font-size:10.5pt;font-weight:800;color:var(--tcs-navy)}
+  .mf{font-size:9.5pt;line-height:1.5;color:var(--tcs-slate-600);margin-top:2pt}
+</style>
+</helmet>
+<doc-page>
+
+  <!-- 1 · COVER -->
+  <section class="page" style="background:var(--tcs-navy);color:#fff;justify-content:space-between">
+    <div style="padding:0.75in 0.75in 0">
+      <img src="../../assets/logo-mark-white.png" alt="TCS Group" style="height:0.5in;width:auto" />
+    </div>
+    <div style="padding:0 0.75in">
+      <div style="font-size:11pt;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--tcs-salmon)">{{ coverKicker }}</div>
+      <div style="font-family:var(--font-display);font-weight:900;font-size:52pt;line-height:.98;letter-spacing:-.035em;color:#fff;margin-top:14pt">{{ coverTitle }}</div>
+      <div style="height:4pt;width:1.4in;background:var(--tcs-salmon);border-radius:3pt;margin:20pt 0"></div>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:19pt;line-height:1.25;color:var(--tcs-sky);max-width:5in">{{ coverSub }}</div>
+    </div>
+    <div style="padding:0 0.75in 0.75in;display:flex;align-items:flex-end;justify-content:space-between;gap:0.3in">
+      <div>
+        <div style="font-size:9pt;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55)">Presented by</div>
+        <div style="font-family:var(--font-display);font-weight:800;font-size:17pt;color:#fff;margin-top:3pt">{{ authorName }}</div>
+        <div style="font-size:10pt;color:var(--tcs-sky);margin-top:2pt">{{ authorTitle }}</div>
+      </div>
+      <div style="width:1.5in;height:1.5in;border-radius:50%;overflow:hidden;border:4pt solid var(--tcs-salmon);flex:0 0 auto">
+        <image-slot id="bg-author-cover" shape="circle" placeholder="Author photo"></image-slot>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · AUTHOR STORY -->
+  <section class="page">
+    <div class="pad" style="flex:1">
+      <div class="kicker">My Story</div>
+      <div class="h2">Why I built the Burn-to-Earn™ Formula</div>
+      <div class="rule"></div>
+      <div style="display:grid;grid-template-columns:1fr 2.1in;gap:0.3in;align-items:start">
+        <div class="body">
+          <p style="margin-top:0">When my wife and I got married, we started out renting like many newlyweds. But after two years of paying $1,200 in rent monthly, I felt like we were burning money. Something had to change.</p>
+          <p>As immigrants without permanent status, we were hesitant to buy. We didn't have a 20% down payment, and committing to a mortgage felt overwhelming. What if we lost our jobs? The fear of making the wrong decision held us back.</p>
+          <p>But as I learned more about real estate, I discovered we didn't need as much upfront as we'd thought. That knowledge gave me the confidence to buy my first home — an investment that changed my life.</p>
+          <p style="margin-bottom:0">Since then, I've shared what I learned, helping hundreds of renters buy their first homes.</p>
+        </div>
+        <div style="width:100%;height:2.6in;border-radius:10pt;overflow:hidden">
+          <image-slot id="bg-author-story" shape="rect" placeholder="Author photo"></image-slot>
+        </div>
+      </div>
+      <div style="background:var(--tcs-navy);color:#fff;border-radius:12pt;padding:0.28in 0.32in;margin-top:0.3in">
+        <div style="font-family:var(--font-display);font-weight:800;font-size:15pt;line-height:1.35;color:#fff">"It felt like we were setting twelve $100 bills on fire. Then the first of the month comes, and we do it again. We did that every month for two years."</div>
+        <div style="font-size:9pt;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--tcs-salmon);margin-top:10pt">{{ authorName }}</div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.16in;margin-top:0.3in">
+        <div style="background:var(--tcs-sky);border-radius:10pt;padding:0.2in;text-align:center">
+          <div style="font-family:var(--font-display);font-weight:900;font-size:24pt;color:var(--tcs-navy);line-height:1">Top 1%</div>
+          <div style="font-size:8.5pt;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--tcs-navy-600);margin-top:4pt">Philadelphia agents</div>
+        </div>
+        <div style="background:var(--tcs-sky);border-radius:10pt;padding:0.2in;text-align:center">
+          <div style="font-family:var(--font-display);font-weight:900;font-size:24pt;color:var(--tcs-navy);line-height:1">1 in 5</div>
+          <div style="font-size:8.5pt;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--tcs-navy-600);margin-top:4pt">Philly home sales</div>
+        </div>
+        <div style="background:var(--tcs-sky);border-radius:10pt;padding:0.2in;text-align:center">
+          <div style="font-family:var(--font-display);font-weight:900;font-size:24pt;color:var(--tcs-navy);line-height:1">4,500+</div>
+          <div style="font-size:8.5pt;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--tcs-navy-600);margin-top:4pt">Rental units managed</div>
+        </div>
+      </div>
+    </div>
+    <div class="foot"><span>The Burn-to-Earn™ Formula</span><span>2</span></div>
+  </section>
+
+  <!-- 3 · THE FORMULA -->
+  <section class="page">
+    <div class="pad" style="flex:1">
+      <div class="kicker">The Game-Changing Strategy</div>
+      <div class="h2">The math equation that matters</div>
+      <div class="rule"></div>
+      <div class="body" style="max-width:5.6in">
+        <p style="margin-top:0">My method for helping first-time homebuyers begins by breaking down the math to show whether buying makes more sense than continuing to rent. I call it the <strong style="color:var(--tcs-navy)">Burn-to-Earn™ Formula</strong>.</p>
+      </div>
+      <div style="background:var(--tcs-cloud);border-radius:14pt;padding:0.32in;margin-top:0.2in">
+        <div style="font-size:9pt;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--tcs-salmon)">Cost of renting</div>
+        <div style="font-family:var(--font-display);font-weight:800;font-size:17pt;color:var(--tcs-navy);margin-top:5pt">Monthly Rent &nbsp;+&nbsp; Opportunity Lost</div>
+        <div style="height:1px;background:var(--tcs-line);margin:0.2in 0"></div>
+        <div style="font-size:9pt;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--tcs-salmon)">Cost of owning</div>
+        <div style="font-family:var(--font-display);font-weight:800;font-size:17pt;color:var(--tcs-navy);margin-top:5pt">Mortgage &nbsp;+&nbsp; Insurance &nbsp;+&nbsp; Taxes &nbsp;−&nbsp; Tax Savings</div>
+      </div>
+      <div class="body" style="margin-top:0.28in;max-width:5.9in">
+        <p>This approach works for every home-buying journey — simplifying the financial side of ownership, showing where the numbers favor buying, customizing the math to your rent, and factoring in grants, down payments, and long-term appreciation.</p>
+      </div>
+      <div style="margin-top:0.3in">
+        <div style="font-size:9pt;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--tcs-navy);margin-bottom:0.16in">3 simple steps to build wealth with real estate</div>
+        <div style="display:flex;flex-direction:column;gap:0.14in">
+          <div style="display:flex;align-items:center;gap:0.18in;background:var(--tcs-navy);border-radius:10pt;padding:0.2in 0.26in">
+            <span class="num">1</span><span style="font-family:var(--font-display);font-weight:800;font-size:16pt;color:#fff">Crush The Myths</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.18in;background:var(--tcs-navy);border-radius:10pt;padding:0.2in 0.26in">
+            <span class="num">2</span><span style="font-family:var(--font-display);font-weight:800;font-size:16pt;color:#fff">Know Your Math</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.18in;background:var(--tcs-navy);border-radius:10pt;padding:0.2in 0.26in">
+            <span class="num">3</span><span style="font-family:var(--font-display);font-weight:800;font-size:16pt;color:#fff">Get Leverage</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="foot"><span>The Burn-to-Earn™ Formula</span><span>3</span></div>
+  </section>
+
+  <!-- 4 · OLD WAY / NEW WAY -->
+  <section class="page">
+    <div class="pad" style="flex:1">
+      <div class="kicker">Overview</div>
+      <div class="h2">The old way vs. the new way</div>
+      <div class="rule"></div>
+      <table style="width:100%;border-collapse:collapse;font-size:10pt">
+        <thead>
+          <tr>
+            <th style="width:50%;text-align:left;background:var(--tcs-slate-100);color:var(--tcs-slate-600);padding:9pt 12pt;font-size:9pt;font-weight:800;letter-spacing:.12em;text-transform:uppercase;border-radius:8pt 0 0 0">Old Way — Renting</th>
+            <th style="width:50%;text-align:left;background:var(--tcs-salmon);color:#fff;padding:9pt 12pt;font-size:9pt;font-weight:800;letter-spacing:.12em;text-transform:uppercase;border-radius:0 8pt 0 0">New Way — Owning</th>
+          </tr>
+        </thead>
+        <tbody>
+          <sc-for list="{{ compare }}" as="c" hint-placeholder-count="5">
+            <tr style="border-bottom:1px solid var(--tcs-line)">
+              <td style="padding:11pt 12pt;color:var(--tcs-slate-600);line-height:1.45;vertical-align:top">{{ c.old }}</td>
+              <td style="padding:11pt 12pt;color:var(--tcs-navy);font-weight:600;line-height:1.45;vertical-align:top;background:rgba(212,238,247,.35)">{{ c.new }}</td>
+            </tr>
+          </sc-for>
+        </tbody>
+      </table>
+      <div style="background:var(--tcs-sky);border-radius:12pt;padding:0.26in 0.3in;margin-top:0.34in">
+        <div style="font-family:var(--font-display);font-weight:800;font-size:15pt;color:var(--tcs-navy);line-height:1.3">Never feel like you are burning money again.</div>
+        <div class="body" style="margin-top:6pt">Once affordability is established and the math proves the investment, we start the search — with a clear distinction between your must-haves and your wants.</div>
+      </div>
+    </div>
+    <div class="foot"><span>The Burn-to-Earn™ Formula</span><span>4</span></div>
+  </section>
+
+  <!-- 5 · STEP 1 MYTHS -->
+  <section class="page">
+    <div class="pad" style="flex:1">
+      <div style="display:flex;align-items:center;gap:0.16in"><span class="num">1</span><span class="kicker">Step One</span></div>
+      <div class="h2">Crush the myths</div>
+      <div class="rule"></div>
+      <div class="body" style="margin-bottom:0.24in;max-width:5.9in">Buying your first home is one of the biggest financial decisions you'll ever make. Don't get distracted by the myths — here are the six we hear most.</div>
+      <sc-for list="{{ myths }}" as="m" hint-placeholder-count="6">
+        <div class="myth">
+          <div class="mt">MYTH: {{ m.myth }}</div>
+          <div class="mf"><strong style="color:var(--tcs-salmon)">FACT:</strong> {{ m.fact }}</div>
+        </div>
+      </sc-for>
+    </div>
+    <div class="foot"><span>Step 1 · Crush The Myths</span><span>5</span></div>
+  </section>
+
+  <!-- 6 · PROGRAMS -->
+  <section class="page">
+    <div class="pad" style="flex:1">
+      <div class="kicker">Step One · Continued</div>
+      <div class="h2">Grant &amp; loan programs worth knowing</div>
+      <div class="rule"></div>
+      <div class="body" style="margin-bottom:0.2in">You may qualify for more help than you think. These are the programs we review most often with first-time buyers.</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.16in">
+        <sc-for list="{{ programs }}" as="p" hint-placeholder-count="8">
+          <div style="background:var(--tcs-cloud);border-radius:9pt;padding:0.16in 0.18in">
+            <div style="font-size:9.5pt;font-weight:800;color:var(--tcs-navy)">{{ p.name }}</div>
+            <div style="font-size:8.5pt;line-height:1.45;color:var(--tcs-slate-600);margin-top:2pt">{{ p.desc }}</div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="background:var(--tcs-navy);color:#fff;border-radius:10pt;padding:0.2in 0.26in;margin-top:0.24in;font-size:10pt;font-weight:600">Not sure which you qualify for? We'll walk through them with you — no cost, no obligation.</div>
+    </div>
+    <div class="foot"><span>Step 1 · Crush The Myths</span><span>6</span></div>
+  </section>
+
+  <!-- 7 · STEP 2 MATH -->
+  <section class="page">
+    <div class="pad" style="flex:1">
+      <div style="display:flex;align-items:center;gap:0.16in"><span class="num">2</span><span class="kicker">Step Two</span></div>
+      <div class="h2">Know your math</div>
+      <div class="rule"></div>
+      <div class="body" style="margin-bottom:0.2in;max-width:5.9in">It's all about affordability. A critical factor is the <strong style="color:var(--tcs-navy)">opportunity cost of renting</strong> — the appreciation you miss on the home you'd love to own. Example below: a {{ exHome }} home with a {{ exLoan }} mortgage.</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.14in">
+        <sc-for list="{{ variables }}" as="v" hint-placeholder-count="6">
+          <div style="background:#fff;border:1.2pt solid var(--tcs-line);border-radius:9pt;padding:0.16in 0.18in">
+            <div style="display:flex;align-items:center;gap:7pt">
+              <span style="width:17pt;height:17pt;border-radius:50%;background:var(--tcs-navy);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:9pt;flex:0 0 auto">{{ v.n }}</span>
+              <span style="font-size:9pt;font-weight:800;color:var(--tcs-navy)">{{ v.name }}</span>
+            </div>
+            <div style="font-family:var(--font-display);font-weight:900;font-size:19pt;color:var(--tcs-ink);margin-top:6pt">{{ v.value }}</div>
+            <div style="font-size:8pt;line-height:1.4;color:var(--tcs-slate);margin-top:2pt">{{ v.note }}</div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.16in;margin-top:0.24in">
+        <div style="border:2pt solid var(--tcs-salmon);border-radius:12pt;padding:0.2in 0.24in;text-align:center">
+          <div style="font-size:9pt;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--tcs-salmon)">Total Cost of Renting</div>
+          <div style="font-family:var(--font-display);font-weight:900;font-size:30pt;color:var(--tcs-navy);margin-top:4pt">{{ exRent }}</div>
+        </div>
+        <div style="background:var(--tcs-navy);border-radius:12pt;padding:0.2in 0.24in;text-align:center;color:#fff">
+          <div style="font-size:9pt;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--tcs-sky)">Total Cost of Owning</div>
+          <div style="font-family:var(--font-display);font-weight:900;font-size:30pt;margin-top:4pt">{{ exOwn }}</div>
+        </div>
+      </div>
+      <div style="background:var(--tcs-salmon);color:#fff;border-radius:12pt;padding:0.2in 0.26in;margin-top:0.16in;display:flex;align-items:center;justify-content:space-between;gap:0.2in">
+        <span style="font-size:11pt;font-weight:800;letter-spacing:.06em;text-transform:uppercase">Losing per month to rent</span>
+        <span style="font-family:var(--font-display);font-weight:900;font-size:26pt">{{ exGap }}</span>
+      </div>
+    </div>
+    <div class="foot"><span>Step 2 · Know Your Math</span><span>7</span></div>
+  </section>
+
+  <!-- 8 · STEP 3 LEVERAGE -->
+  <section class="page">
+    <div class="pad" style="flex:1">
+      <div style="display:flex;align-items:center;gap:0.16in"><span class="num">3</span><span class="kicker">Step Three</span></div>
+      <div class="h2">Get leverage</div>
+      <div class="rule"></div>
+      <div class="body" style="margin-bottom:0.24in;max-width:5.9in">View a home as more than a place to live — it's an appreciating asset. As it grows in value, you can leverage that equity into future investments and long-term family wealth.</div>
+
+      <div style="background:var(--tcs-cloud);border-radius:12pt;padding:0.26in 0.3in;margin-bottom:0.2in">
+        <div style="font-size:9pt;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--tcs-salmon)">Example 1 · Appreciation &amp; equity growth</div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.12in;margin-top:0.14in">
+          <div><div style="font-size:8pt;font-weight:700;text-transform:uppercase;color:var(--tcs-slate);letter-spacing:.05em">Purchase</div><div style="font-family:var(--font-display);font-weight:900;font-size:16pt;color:var(--tcs-navy)">$350,000</div></div>
+          <div><div style="font-size:8pt;font-weight:700;text-transform:uppercase;color:var(--tcs-slate);letter-spacing:.05em">Appreciation</div><div style="font-family:var(--font-display);font-weight:900;font-size:16pt;color:var(--tcs-navy)">4% / yr</div></div>
+          <div><div style="font-size:8pt;font-weight:700;text-transform:uppercase;color:var(--tcs-slate);letter-spacing:.05em">Value @ 10 yrs</div><div style="font-family:var(--font-display);font-weight:900;font-size:16pt;color:var(--tcs-navy)">$490,000</div></div>
+          <div><div style="font-size:8pt;font-weight:700;text-transform:uppercase;color:var(--tcs-slate);letter-spacing:.05em">Your equity</div><div style="font-family:var(--font-display);font-weight:900;font-size:16pt;color:var(--tcs-salmon)">$190,000</div></div>
+        </div>
+        <div style="font-size:9pt;line-height:1.5;color:var(--tcs-slate-600);margin-top:10pt">That equity can become the down payment on a second property — starting a rental income stream and growing your portfolio.</div>
+      </div>
+
+      <div style="background:var(--tcs-cloud);border-radius:12pt;padding:0.26in 0.3in">
+        <div style="font-size:9pt;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--tcs-salmon)">Example 2 · Passive income through renting</div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.12in;margin-top:0.14in">
+          <div><div style="font-size:8pt;font-weight:700;text-transform:uppercase;color:var(--tcs-slate);letter-spacing:.05em">Live in it</div><div style="font-family:var(--font-display);font-weight:900;font-size:16pt;color:var(--tcs-navy)">5 yrs</div></div>
+          <div><div style="font-size:8pt;font-weight:700;text-transform:uppercase;color:var(--tcs-slate);letter-spacing:.05em">Rent it for</div><div style="font-family:var(--font-display);font-weight:900;font-size:16pt;color:var(--tcs-navy)">$2,500/mo</div></div>
+          <div><div style="font-size:8pt;font-weight:700;text-transform:uppercase;color:var(--tcs-slate);letter-spacing:.05em">Your payment</div><div style="font-family:var(--font-display);font-weight:900;font-size:16pt;color:var(--tcs-navy)">$2,000/mo</div></div>
+          <div><div style="font-size:8pt;font-weight:700;text-transform:uppercase;color:var(--tcs-slate);letter-spacing:.05em">Annual cash flow</div><div style="font-family:var(--font-display);font-weight:900;font-size:16pt;color:var(--tcs-salmon)">$6,000</div></div>
+        </div>
+        <div style="font-size:9pt;line-height:1.5;color:var(--tcs-slate-600);margin-top:10pt">Keep renting it for another 10–15 years and that income strengthens your position while the property keeps appreciating.</div>
+      </div>
+    </div>
+    <div class="foot"><span>Step 3 · Get Leverage</span><span>8</span></div>
+  </section>
+
+  <!-- 9 · CTA / BACK -->
+  <section class="page" style="background:var(--tcs-navy);color:#fff;justify-content:space-between">
+    <div style="padding:0.75in 0.75in 0">
+      <img src="../../assets/logo-mark-white.png" alt="TCS Group" style="height:0.5in;width:auto" />
+    </div>
+    <div style="padding:0 0.75in">
+      <div style="font-size:10pt;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--tcs-salmon)">Your Next Step</div>
+      <div style="font-family:var(--font-display);font-weight:900;font-size:40pt;line-height:1.02;letter-spacing:-.03em;color:#fff;margin-top:12pt">Let's run your numbers together.</div>
+      <div style="font-size:13pt;line-height:1.55;color:var(--tcs-sky);margin-top:14pt;max-width:5.2in">Book a free, no-pressure strategy session. We'll build your Burn-to-Earn™ math, review the programs you qualify for, and map out what's realistic — whether you buy this year or in three.</div>
+      <div style="display:flex;gap:0.2in;margin-top:0.34in;flex-wrap:wrap">
+        <div style="background:var(--tcs-salmon);border-radius:999px;padding:0.16in 0.34in;font-size:13pt;font-weight:800;color:#fff">{{ ctaPhone }}</div>
+        <div style="border:1.5pt solid rgba(255,255,255,.45);border-radius:999px;padding:0.16in 0.34in;font-size:13pt;font-weight:800;color:#fff">{{ ctaSite }}</div>
+      </div>
+    </div>
+    <div style="padding:0 0.75in 0.75in">
+      <div style="height:1px;background:rgba(255,255,255,.2);margin-bottom:0.2in"></div>
+      <div style="font-size:8pt;line-height:1.5;color:rgba(255,255,255,.55);max-width:5.6in">The financial information provided is intended for informational and illustrative purposes only. These are approximate figures and may vary based on individual circumstances, lender terms, market conditions, and location. Please consult with your accountant or tax advisor before making a purchase.</div>
+    </div>
+  </section>
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;coverKicker&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;A Guide for Renters&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Cover&quot; },
+  &quot;coverTitle&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;The Burn-to-Earn™ Formula&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Cover&quot; },
+  &quot;coverSub&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;The 3 shockingly simple steps to build wealth with real estate&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Cover&quot; },
+  &quot;authorName&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;Gaurav Gambhir&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Author&quot; },
+  &quot;authorTitle&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;Founder, TCS Group&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Author&quot; },
+  &quot;exHome&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;$350,000&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Math example&quot; },
+  &quot;exLoan&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;$300,000&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Math example&quot; },
+  &quot;exRent&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;$3,366&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Math example&quot; },
+  &quot;exOwn&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;$2,370&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Math example&quot; },
+  &quot;exGap&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;$996&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Math example&quot; },
+  &quot;ctaPhone&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;(215) 692-6636&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;CTA&quot; },
+  &quot;ctaSite&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;tcsgroup.com&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;CTA&quot; }
+}">
+const COMPARE = [
+  { old: 'Pay $2,200 in rent, never seeing value in the future.', new: 'Pay $2,200 toward a mortgage, building equity every month.' },
+  { old: 'Pay a security deposit plus first and last month — $6,600 at $2,200/mo, every time you move.', new: 'Pay 3%–10% down ($10,500 on a $350,000 home) — and keep the equity when you move.' },
+  { old: 'Rent can increase annually, with no control over costs.', new: 'Lock in a fixed-rate mortgage for stable, predictable housing costs.' },
+  { old: 'Leave with nothing when you move — no ownership benefits.', new: 'Appreciation and potential rental income when you sell or rent it out.' },
+  { old: 'No appreciation and no wealth-building.', new: 'Appreciation that increases your net worth over time.' },
+];
+
+const MYTHS = [
+  { myth: 'You need a 20% down payment', fact: 'The biggest misconception in real estate. Programs range from no money down to 3%, 5%, or 10% — several are listed on the next page.' },
+  { myth: 'Homeownership locks you in long term', fact: 'Renters fear being tied to a 30-year mortgage if life changes. Owning actually gives you options: sell at a profit, or rent it out.' },
+  { myth: 'Maintenance costs are too high', fact: 'Repairs and upkeep are real, but the wealth-building potential of ownership typically far outweighs them.' },
+  { myth: 'A high credit score is always required', fact: 'A perfect score is not required. There are programs for lower credit scores, and a parent or relative can co-sign.' },
+  { myth: 'Owning is more expensive than renting', fact: 'Once you account for tax benefits, equity build-up, and appreciation, buying is often comparable or cheaper long term.' },
+  { myth: 'There are no assistance programs', fact: 'Grants, down-payment assistance, and low-down-payment loans all exist. We review the ones you qualify for.' },
+];
+
+const PROGRAMS = [
+  { name: 'FHA Loans', desc: 'Just 3.5% down with a credit score of 580+. Government-backed and easier to qualify for.' },
+  { name: 'VA Loans', desc: 'For active-duty military, veterans, and eligible spouses. No down payment, no PMI.' },
+  { name: 'USDA Loans', desc: 'Rural and suburban buyers with low-to-moderate income. No down payment; credit as low as 640.' },
+  { name: 'Philly First Home Grant', desc: 'Up to $10,000 (or 6% of price) toward down payment and/or closing costs for first-time buyers.' },
+  { name: 'PHFA K-FIT Program', desc: 'Up to 5% of the sale price as a forgivable second loan — no payment required.' },
+  { name: 'BorrowSmart Access', desc: 'A $3,000 grant if you qualify for a conventional loan and earn under $160,000.' },
+  { name: 'HomePath Ready Buyer', desc: "Up to 3% in closing-cost help on Fannie Mae HomePath properties." },
+  { name: 'Good Neighbor Next Door', desc: '50% off eligible homes for teachers, law enforcement, firefighters, and EMTs.' },
+  { name: 'NACA', desc: 'No down payment, no closing costs, and no credit score requirement.' },
+  { name: 'Borrow from your 401(k)', desc: 'Borrow up to 50% of your balance or $50,000 toward your purchase.' },
+];
+
+const VARIABLES = [
+  { n: '1', name: 'Monthly Rent', value: '$2,200', note: 'What you pay today — and it rises over time.' },
+  { n: '2', name: 'Mortgage Payment', value: '$1,800', note: 'About $600 per $100,000 borrowed (P&I).' },
+  { n: '3', name: 'Tax & Insurance', value: '$579', note: 'Taxes ~1.5% of value; insurance ~$1,700/yr.' },
+  { n: '4', name: 'Ownership Costs', value: '$291', note: 'Maintenance at ~1% of home value per year.' },
+  { n: '5', name: 'Opportunity Cost', value: '$1,166', note: 'The 4% annual appreciation you miss by renting.' },
+  { n: '6', name: 'Tax Benefit', value: '-$300', note: 'Deductions on mortgage interest and property taxes.' },
+];
+
+class Component extends DCLogic {
+  renderVals() {
+    const p = this.props || {};
+    return {
+      coverKicker: p.coverKicker || 'A Guide for Renters',
+      coverTitle: p.coverTitle || 'The Burn-to-Earn™ Formula',
+      coverSub: p.coverSub || 'The 3 shockingly simple steps to build wealth with real estate',
+      authorName: p.authorName || 'Gaurav Gambhir',
+      authorTitle: p.authorTitle || 'Founder, TCS Group',
+      exHome: p.exHome || '$350,000',
+      exLoan: p.exLoan || '$300,000',
+      exRent: p.exRent || '$3,366',
+      exOwn: p.exOwn || '$2,370',
+      exGap: p.exGap || '$996',
+      ctaPhone: p.ctaPhone || '(215) 692-6636',
+      ctaSite: p.ctaSite || 'tcsgroup.com',
+      compare: COMPARE,
+      myths: MYTHS,
+      programs: PROGRAMS,
+      variables: VARIABLES,
+    };
+  }
+}
+</script>
+</body>
+</html>
